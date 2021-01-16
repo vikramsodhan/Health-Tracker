@@ -24,6 +24,13 @@ $ heroku create
 $ git push heroku main
 $ heroku open
 ```
+
+## associate the Heroku app with the repository
+
+```
+$ heroku git:remote -a cmpt276-spring-group-project
+```
+
 or
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
