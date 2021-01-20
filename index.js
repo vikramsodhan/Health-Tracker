@@ -3,6 +3,9 @@ const express = require('express');  // this is the Sinatra-like MVC frameworks 
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
+
+// use this module to connect to the database specified
+// in DATABASE_URL environment variable
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -18,8 +21,8 @@ express()
 
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  
-  // some special path
+
+  // some special route
   .get('/', (req, res) => res.render('pages/index'))
   .get('/cool', (req, res) => res.send(cool()))
   .get('/times', (req, res) => res.send(showTimes()))
