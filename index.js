@@ -1,5 +1,5 @@
-const cool = require('cool-ascii-faces');
-const express = require('express');
+const cool = require('cool-ascii-faces'); //this is an simple API
+const express = require('express');  // this is the Sinatra-like MVC frameworks for Node.js
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
@@ -13,9 +13,13 @@ const pool = new Pool({
 
 
 express()
+  // search for the public folder for file
   .use(express.static(path.join(__dirname, 'public')))
+
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
+  
+  // some special path
   .get('/', (req, res) => res.render('pages/index'))
   .get('/cool', (req, res) => res.send(cool()))
   .get('/times', (req, res) => res.send(showTimes()))
