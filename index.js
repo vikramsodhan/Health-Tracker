@@ -1,6 +1,10 @@
+// require: when we want to use the externial libary
+// can be see as "import"
 const cool = require('cool-ascii-faces'); //this is an simple API
 const express = require('express');  // this is the Sinatra-like MVC frameworks for Node.js
-const path = require('path');
+const path = require('path'); // a libary/PKG; pre-installed with java script
+
+// eighter found on env or set it to 5000
 const PORT = process.env.PORT || 5000;
 
 
@@ -17,9 +21,13 @@ const pool = new Pool({
 
 express()
   // search for the public folder for file
+  // the static request
   .use(express.static(path.join(__dirname, 'public')))
 
+
+  // the defalt page in heroku weill set in the view folder
   .set('views', path.join(__dirname, 'views'))
+  // the view engine will be ejs; the page will be ejs file
   .set('view engine', 'ejs')
 
   // some special route
