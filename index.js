@@ -19,42 +19,58 @@ const pool = new Pool({
 });
 
 
-express()
-  // search for the public folder for file
-  // the static request
-  .use(express.static(path.join(__dirname, 'public')))
+// this is our app
+var app = express();
+// this line give the server the ability to work with JSON
+app.use(express.json());
+// this line is also needed for every server
+app.use(express.urlencoded({extended: flase}));
 
 
-  // the defalt page in heroku weill set in the view folder
-  .set('views', path.join(__dirname, 'views'))
-  // the view engine will be ejs; the page will be ejs file
-  .set('view engine', 'ejs')
+// search for the public folder for file
+// the static request, such as a html page in the public folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-  // some special route
-  .get('/', (req, res) => res.render('pages/index'))
-  .get('/cool', (req, res) => res.send(cool()))
-  .get('/times', (req, res) => res.send(showTimes()))
 
-  .get('/db', async (req, res) => {
-      try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM test_table');
-        const results = { 'results': (result) ? result.rows : null};
-        res.render('pages/db', results );
-        client.release();
-      } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-      }
-    })
+// the defalt page in heroku weill set in the view folder
+app.set('views', path.join(__dirname, 'views'));
+// the view engine will be ejs; the page will be ejs file
+// ejs - embedded java script
+app.set('view engine', 'ejs');
 
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+// the get request by client
+// get(route , request object, response object)
+// response object.rendering(something)
+app.get('/', (req, res) => res.render('pages/index'));
+app.get('/cool', (req, res) => res.send(cool()));
+app.get('/times', (req, res) => res.send(showTimes()));
 
-  showTimes = () => {
-    let result = '';
-    const times = process.env.TIMES || 5;
-    for (i = 0; i < times; i++) {
-      result += i + ' ';
+app.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM test_table');
+      // create an object results
+      const results = { 'results': (result) ? result.rows : null};
+      // send in the data into pages/db; render it
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
     }
-    return result;
+  });
+
+
+// the post request by client. eg. addUser; change the Database,etc
+
+// print on the console which port are we listening
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+showTimes = () => {
+  let result = '';
+  const times = process.env.TIMES || 5;
+  for (i = 0; i < times; i++) {
+    result += i + ' ';
   }
+  return result;
+}
