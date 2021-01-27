@@ -24,7 +24,7 @@ var app = express();
 // this line give the server the ability to work with JSON
 app.use(express.json());
 // this line is also needed for every server
-app.use(express.urlencoded({extended: flase}));
+app.use(express.urlencoded({extended: false}));
 
 
 // search for the public folder for file
@@ -61,7 +61,16 @@ app.get('/db', async (req, res) => {
   });
 
 
-// the post request by client. eg. addUser; change the Database,etc
+// the post request by client. eg. adduser; change the Database,etc
+app.post('/adduser', (req, res) => {
+  console.log("post reques for /adduser");
+  // the resquest body is an json object
+  var userName = req.body.user_name;
+  // send is just text, if we want to use formated pages(html)
+  // we need to use the render function
+  res.send(`username: ${userName}, hello!`);
+});
+
 
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

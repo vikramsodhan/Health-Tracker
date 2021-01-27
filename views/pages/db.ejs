@@ -12,7 +12,10 @@
 <h2>Database Results</h2>
 
 <ul>
+  <!-- <% ... %> means it is the embedded java script -->
     <% results.forEach(function(r) { %>
+      <!-- for each item in the data called result -->
+      <!-- "%=" means print -->
         <li><%= r.id %> - <%= r.name %></li>
     <% }); %>
 </ul>
