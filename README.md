@@ -1,3 +1,13 @@
+
+### Associate the Heroku app with the repository
+
+```
+$ heroku git:remote -a cmpt276-spring-group-project
+```
+
+#### Note and reference
+_this web application is build using the "node-js-getting-started" template on Heroku. Below is the origional README information:_
+
 # node-js-getting-started
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
@@ -25,11 +35,7 @@ $ git push heroku main
 $ heroku open
 ```
 
-## associate the Heroku app with the repository
 
-```
-$ heroku git:remote -a cmpt276-spring-group-project
-```
 
 or
 
