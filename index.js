@@ -20,7 +20,7 @@ const pool = new Pool({
 
 
 // this is our app
-var app = express();
+const app = express();
 // this line give the server the ability to work with JSON
 app.use(express.json());
 // this line is also needed for every server
