@@ -62,13 +62,18 @@ app.get('/db', async (req, res) => {
 
 
 // the post request by client. eg. adduser; change the Database,etc
+// Still in work, not connect to database yet
 app.post('/adduser', (req, res) => {
   console.log("post reques for /adduser");
   // the resquest body is an json object
   var userName = req.body.user_name;
+  var userEmail = req.body.user_email;
+
   // send is just text, if we want to use formated pages(html)
   // we need to use the render function
-  res.send(`username: ${userName}, hello!`);
+  res.send(`username: ${userName} <br>
+    useremail: ${userEmail} <br>
+    Hello!`);
 });
 
 
