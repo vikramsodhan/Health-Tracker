@@ -1,3 +1,7 @@
+### Project main page
+
+[Project main page](https://cmpt276-spring-group-project.herokuapp.com)
+
 
 ### Associate the Heroku app with the repository
 
