@@ -4,19 +4,16 @@ const cool = require('cool-ascii-faces'); //this is an simple API
 const express = require('express');  // this is the Sinatra-like MVC frameworks for Node.js
 const path = require('path'); // a libary/PKG; pre-installed with java script
 
+// CRUD functions in a REST API
+const db = require('./queries')
+
+
+
 // eighter found on env or set it to 5000
 const PORT = process.env.PORT || 5000;
 
 
-// use this module to connect to the database specified
-// in DATABASE_URL environment variable
-const { Pool } = require('pg');
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+
 
 
 // this is our app
@@ -45,10 +42,11 @@ app.get('/', (req, res) => res.render('pages/index'));
 app.get('/cool', (req, res) => res.send(cool()));
 app.get('/times', (req, res) => res.send(showTimes()));
 
+// test page; will change wen we start the project
 app.get('/db', async (req, res) => {
     try {
       const client = await pool.connect();
-      const result = await client.query('SELECT * FROM test_table');
+      const result = await client.query('SELECT * FROM test_users');
       // create an object results
       const results = { 'results': (result) ? result.rows : null};
       // send in the data into pages/db; render it
@@ -59,6 +57,18 @@ app.get('/db', async (req, res) => {
       res.send("Error " + err);
     }
   });
+
+
+
+// the following set is for testing only
+app.get('/users', db.getUsers)
+app.get('/users/:id', db.getUserById)
+app.post('/users', db.createUser)
+app.put('/users/:id', db.updateUser)
+app.delete('/users/:id', db.deleteUser)
+// end of testing set
+
+
 
 
 // the post request by client. eg. adduser; change the Database,etc
