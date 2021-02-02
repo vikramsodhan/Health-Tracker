@@ -13,7 +13,15 @@ const db = require('./queries')
 const PORT = process.env.PORT || 5000;
 
 
-
+// use this module to connect to the database specified
+// in DATABASE_URL environment variable
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 
 // this is our app

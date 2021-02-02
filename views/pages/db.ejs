@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% include ../partials/header.ejs %>
+  <%- include ("../partials/header.ejs") %>
 </head>
 
 <body>
 
-<% include ../partials/nav.ejs %>
+<%- include ("../partials/nav.ejs") %>
 
 <div class="container">
 <h2>Database Results</h2>
 
 <ul>
-  <!-- <% ... %> means it is the embedded java script -->
+  <!-- for each of the object in results -->
     <% results.forEach(function(r) { %>
-      <!-- for each item in the data called result -->
-      <!-- "%=" means print -->
-        <li><%= r.id %> - <%= r.name %> - <%= r.email %></li>
+        <li> id: <%= r.id %> - name: <%= r.name %> - email: <%= r.email %> </li>
     <% }); %>
 </ul>
 
