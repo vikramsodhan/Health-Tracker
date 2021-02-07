@@ -32,6 +32,29 @@ const getUserById = (request, response) => {
 
 const createUser = (request, response) => {
   const { name, email } = request.body
+  // before add to database we also need to verify the input
+  pool.query('SELECT email FROM test_users WHERE email = $1', [email], (error, results) => {
+    if (error) {
+      throw error
+    }
+    if (results.length > 0) {
+      response.send('Email already used for registration');
+  		response.end();
+    }
+  })
+
+  pool.query('SELECT name FROM test_users WHERE name = $1', [name], (error, results) => {
+    if (error) {
+      throw error
+    }
+    if (results.length > 0) {
+      response.send('Email already used for registration');
+  		response.end();
+    }
+  })
+
+
+  // now we can safely add new user
 
   pool.query('INSERT INTO test_users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
     if (error) {

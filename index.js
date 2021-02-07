@@ -3,6 +3,9 @@
 const cool = require('cool-ascii-faces'); //this is an simple API
 const express = require('express');  // this is the Sinatra-like MVC frameworks for Node.js
 const path = require('path'); // a libary/PKG; pre-installed with java script
+var session = require('express-session'); // used for login
+var bodyParser = require('body-parser');
+
 
 // CRUD functions in a REST API
 const db = require('./queries')
@@ -25,16 +28,32 @@ const pool = new Pool({
 
 
 // this is our app
-const app = express();
+var app = express();
+
+// the next block will have lots of "use"
+
 // this line give the server the ability to work with JSON
 app.use(express.json());
+app.use(bodyParser.json());
 // this line is also needed for every server
 app.use(express.urlencoded({extended: false}));
-
+app.use(bodyParser.urlencoded({extended : true}));
+// the user session
+app.use(session({
+  // secret should be random
+	secret: 'idfh3l4j5hl98fad9fj34or',
+	resave: true,
+	saveUninitialized: true
+}));
 
 // search for the public folder for file
 // the static request, such as a html page in the public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
+
 
 
 // the defalt page in heroku weill set in the view folder
@@ -42,6 +61,9 @@ app.set('views', path.join(__dirname, 'views'));
 // the view engine will be ejs; the page will be ejs file
 // ejs - embedded java script
 app.set('view engine', 'ejs');
+
+
+
 
 // the get request by client
 // get(route , request object, response object)
@@ -65,6 +87,41 @@ app.get('/db', async (req, res) => {
       res.send("Error " + err);
     }
   });
+
+
+// the user login authorization function
+// Note: the login html is not there yet
+app.post('/auth', function(request, response) {
+	var username = request.body.username;
+	var password = request.body.password;
+	if (username && password) {
+    // we might need to change it in the future, from test_users table to a new user table
+		pool.query('SELECT * FROM test_users WHERE name = $1 AND password = $2', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.username = username;
+				response.redirect('/home');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
+
+
+// an example for login required page
+app.get('/home', function(request, response) {
+	if (request.session.loggedin) {
+		response.send('Welcome back, ' + request.session.username + '!');
+	} else {
+		response.send('Please login to view this page!');
+	}
+	response.end();
+});
 
 
 
