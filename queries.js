@@ -30,38 +30,41 @@ const getUserById = (request, response) => {
   })
 }
 
-const createUser = (request, response) => {
-  const { name, email } = request.body
+const createUser = async (request, response) => {
+  // user name is allowed to be case senstive
+  var userName = request.body.user_name;
+  // email is not allowed to be case senstive
+  var userEmail = request.body.user_email.toLowerCase();
   // before add to database we also need to verify the input
-  pool.query('SELECT email FROM test_users WHERE email = $1', [email], (error, results) => {
-    if (error) {
-      throw error
-    }
-    if (results.length > 0) {
-      response.send('Email already used for registration');
-  		response.end();
-    }
-  })
+  // to see if user are in the database or not
 
-  pool.query('SELECT name FROM test_users WHERE name = $1', [name], (error, results) => {
-    if (error) {
-      throw error
-    }
-    if (results.length > 0) {
-      response.send('Email already used for registration');
-  		response.end();
-    }
-  })
-
+  // check email first
+  var check = await pool.query('SELECT * FROM test_users WHERE email = $1', [userEmail]);
+  if (check.rows.length){
+    console.log('find existing email')
+    response.send('Email already used for registration');
+    response.end();
+    return false;
+  }
+  // check username
+  check = await pool.query('SELECT * FROM test_users WHERE name = $1', [userName]);
+  if (check.rows.length){
+    console.log('find existing user name')
+    response.send('User name already used for registration');
+    response.end();
+    return false;
+  }
 
   // now we can safely add new user
 
-  pool.query('INSERT INTO test_users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(201).send(`User added with ID: ${result.insertId}`)
-  })
+  response.send(`check suscess, will enable add to database later`);
+
+  // pool.query('INSERT INTO test_users (name, email) VALUES ($1, $2) RETURNING id', [userName, userEmail], (error, results) => {
+  //   if (error) {
+  //     throw error
+  //   }
+  //   response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+  // })
 }
 
 const updateUser = (request, response) => {
