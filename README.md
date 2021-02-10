@@ -12,6 +12,14 @@ Health Tracker is a web application which allows users to monitor and track thei
 $ heroku git:remote -a cmpt276-spring-group-project
 ```
 
+### Connect to the remote database
+Assuming that you have [Postgres installed locally](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup), use this command to connect to the remote database.
+
+```
+$ heroku pg:psql
+```
+
+
 #### Note and reference
 _this web application is build using the "node-js-getting-started" template on Heroku. Below is the origional README information:_
 
@@ -38,7 +46,7 @@ Your app should now be running on [localhost:5000](http://localhost:5000/).
 
 ```
 $ heroku create
-$ git push heroku main
+$ git push heroku master
 $ heroku open
 ```
 
