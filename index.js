@@ -57,8 +57,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-
+//-------------------------------
 
 
 
@@ -135,7 +134,7 @@ app.get('/home', function(request, response) {
 // the following set is for testing only
 app.get('/users', db.getUsers)
 app.get('/users/:id', db.getUserById)
-app.post('/createUsers', db.createUser)
+
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 // end of testing set
@@ -145,18 +144,16 @@ app.delete('/users/:id', db.deleteUser)
 
 // the post request by client. eg. adduser; change the Database,etc
 // Still in work, not connect to database yet
-app.post('/adduser', (req, res) => {
-  console.log("post reques for /adduser");
-  // the resquest body is an json object
-  var userName = req.body.user_name;
-  var userEmail = req.body.user_email;
+app.post('/createUsers', db.createUser);
 
-  // send is just text, if we want to use formated pages(html)
-  // we need to use the render function
-  res.send(`username: ${userName} <br>
-    useremail: ${userEmail} <br>
-    Hello!`);
-});
+
+
+
+// send() is just sending plain text, if we want to use formated pages(html)
+// we need to use the render function
+// res.send(`username: ${userName} <br>
+//   useremail: ${userEmail} <br>
+//   Hello!`);
 
 
 // print on the console which port are we listening
