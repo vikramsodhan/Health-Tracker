@@ -44,6 +44,12 @@ app.use(session({
 	secret: 'idfh3l4j5hl98fad9fj34or',
 	resave: true,
 	saveUninitialized: true
+
+  //Note about the session expire date:
+  // By default cookie.maxAge is null
+  // meaning no "expires" parameter is set
+  //so the cookie becomes a browser-session cookie.
+  //When the user closes the browser the cookie (and session) will be removed.
 }));
 
 // search for the public folder for file
@@ -91,25 +97,26 @@ app.get('/db', async (req, res) => {
 
 // the user login authorization function
 // Note: the login html is not there yet
-app.post('/auth', function(request, response) {
-	var username = request.body.username;
+app.post('/auth', async function(request, response) {
+	var username = request.body.user_name;
 	var password = request.body.password;
-	if (username && password) {
+  if (username && password) {
     // we might need to change it in the future, from test_users table to a new user table
-		pool.query('SELECT * FROM test_users WHERE name = $1 AND password = $2', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
+    var results = await pool.query('SELECT * FROM test_users WHERE name = $1 AND password = $2', [username, password]);
+    if (results.rows.length) {
+      request.session.loggedin = true;
+      request.session.username = username;
+      request.session.uid = results.rows[0].id;
+      response.redirect('/home');
+    } else {
+      response.send('Incorrect Username and/or Password!');
+    }
+    response.end();
+  } else {
+    response.send('Please enter Username and Password!');
+    response.end();
+  }
+
 });
 
 
