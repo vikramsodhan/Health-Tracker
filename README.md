@@ -18,7 +18,13 @@ Assuming that you have [Postgres installed locally](https://devcenter.heroku.com
 ```
 $ heroku pg:psql
 ```
+  
+<br>
 
+
+---
+---
+---
 
 #### Note and reference
 _this web application is build using the "node-js-getting-started" template on Heroku. Below is the origional README information:_
