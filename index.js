@@ -5,7 +5,7 @@ const express = require('express');  // this is the Sinatra-like MVC frameworks 
 const path = require('path'); // a libary/PKG; pre-installed with java script
 var session = require('express-session'); // used for login
 var bodyParser = require('body-parser');
-
+var cors = require('cors'); // cross-origon resourse sharing
 
 // CRUD functions in a REST API
 const db = require('./queries')
@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5000;
 // in DATABASE_URL environment variable
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: 'postgres://qmhjjvbobislut:296744d793ff9f01b689a6a5dd593b89fc63f4e5659dcc67a9565d5eb6dfbf4f@ec2-52-22-135-159.compute-1.amazonaws.com:5432/ddmnarisnlpo56',
   ssl: {
     rejectUnauthorized: false
   }
@@ -38,6 +38,8 @@ app.use(bodyParser.json());
 // this line is also needed for every server
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({extended : true}));
+// allows pther application to call the route we added
+app.use("/", cors());
 // the user session
 app.use(session({
   // secret should be random
@@ -167,3 +169,6 @@ showTimes = () => {
   }
   return result;
 }
+
+// modulelized all the functions we created for app
+module.exports = app;

@@ -2,7 +2,7 @@
 // in DATABASE_URL environment variable
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: 'postgres://qmhjjvbobislut:296744d793ff9f01b689a6a5dd593b89fc63f4e5659dcc67a9565d5eb6dfbf4f@ec2-52-22-135-159.compute-1.amazonaws.com:5432/ddmnarisnlpo56',
   ssl: {
     rejectUnauthorized: false
   }
@@ -42,7 +42,7 @@ const createUser = async (request, response) => {
   var check = await pool.query('SELECT * FROM test_users WHERE email = $1', [userEmail]);
   if (check.rows.length){
     console.log('find existing email')
-    response.send('Email already used for registration');
+    response.status(400).send('Email already used for registration');
     response.end();
     return false;
   }
@@ -50,14 +50,14 @@ const createUser = async (request, response) => {
   check = await pool.query('SELECT * FROM test_users WHERE name = $1', [userName]);
   if (check.rows.length){
     console.log('find existing user name')
-    response.send('User name already used for registration');
+    response.status(400).send('User name already used for registration');
     response.end();
     return false;
   }
 
   // now we can safely add new user
 
-  response.send(`check suscess, will enable add to database later`);
+  response.send('check suscess, will enable add to database later');
 
   // pool.query('INSERT INTO test_users (name, email) VALUES ($1, $2) RETURNING id', [userName, userEmail], (error, results) => {
   //   if (error) {
