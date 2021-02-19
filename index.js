@@ -110,12 +110,12 @@ app.post('/auth', async function(request, response) {
       request.session.uid = results.rows[0].id;
       response.redirect('/home');
     } else {
-      response.send('Incorrect Username and/or Password!');
+      response.status(400).send('Incorrect Username and/or Password!');
     }
     response.end();
   } else {
-    response.send('Please enter Username and Password!');
-    response.end();
+    response.status(400).send('Please enter Username and Password!');
+    response.status(400).end();
   }
 
 });
