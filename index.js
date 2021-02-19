@@ -115,7 +115,7 @@ app.post('/auth', async function(request, response) {
     response.end();
   } else {
     response.status(400).send('Please enter Username and Password!');
-    response.status(400).end();
+    response.end();
   }
 
 });
