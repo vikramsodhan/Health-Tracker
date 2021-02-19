@@ -54,6 +54,9 @@ app.use(session({
   //When the user closes the browser the cookie (and session) will be removed.
 }));
 
+
+
+
 // search for the public folder for file
 // the static request, such as a html page in the public folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -65,10 +68,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // the defalt page in heroku weill set in the view folder
 app.set('views', path.join(__dirname, 'views'));
+
+
 // the view engine will be ejs; the page will be ejs file
 // ejs - embedded java script
 app.set('view engine', 'ejs');
-
 
 
 
@@ -99,7 +103,7 @@ app.get('/db', async (req, res) => {
 // the user login authorization function
 // Note: the login html is not there yet
 app.post('/auth', async function(request, response) {
-	var username = request.body.user_name;
+	username = request.body.user_name;
 	var password = request.body.password;
   if (username && password) {
     // we might need to change it in the future, from test_users table to a new user table
@@ -108,7 +112,7 @@ app.post('/auth', async function(request, response) {
       request.session.loggedin = true;
       request.session.username = username;
       request.session.uid = results.rows[0].id;
-      response.redirect('/home');
+      response.redirect('/dashboard');
     } else {
       response.send('Incorrect Username and/or Password!');
     }
@@ -122,14 +126,24 @@ app.post('/auth', async function(request, response) {
 
 
 // an example for login required page
-app.get('/home', function(request, response) {
+app.get('/dashboard', function(request, response) {
 	if (request.session.loggedin) {
-		response.send('Welcome back, ' + request.session.username + '!');
+    // response.send('Welcome back, ' + request.session.username + '!');
+    //goes to dashboard
+    var uname = {'name': username};
+    response.render('pages/dashboard', uname);
 	} else {
 		response.send('Please login to view this page!');
 	}
 	response.end();
 });
+
+
+
+
+
+
+
 
 
 
