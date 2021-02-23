@@ -10,6 +10,8 @@ var cors = require("cors"); // cross-origon resourse sharing
 // CRUD functions in a REST API
 const db = require("./queries");
 
+const journalRoutes = require("./routes/journalRoutes"); // this is where all of the journal routes are located
+
 // eighter found on env or set it to 5000
 const PORT = process.env.PORT || 5000;
 
@@ -69,15 +71,17 @@ app.set("views", path.join(__dirname, "views"));
 // ejs - embedded java script
 app.set("view engine", "ejs");
 
-app.get("/journal", (req, res) => {
-  let getUsersQuery = `SELECT * from user_journal_entry`;
-  pool.query(getUsersQuery, (error, result) => {
-    if (error) res.end(error);
-    const results = { rows: result.rows };
-    res.render("pages/journal", results);
-  });
-  // res.render("pages/journal");
-});
+// journal routes
+app.use("/journal", journalRoutes);
+// app.get("/journal", (req, res) => {
+//   let getUsersQuery = `SELECT * from journals ORDER BY date DESC`;
+//   pool.query(getUsersQuery, (error, result) => {
+//     if (error) res.end(error);
+//     const results = { rows: result.rows };
+//     res.render("pages/journal/journal-home", results);
+//   });
+//   // res.render("pages/journal");
+// });
 
 // the get request by client
 // get(route , request object, response object)
