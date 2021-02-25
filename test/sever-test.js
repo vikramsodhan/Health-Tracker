@@ -11,15 +11,19 @@ chai.use(chaiHttp); // if we ever need a http call
 describe('Users', function(){
   // all of the test assocated with user
   // we will change this test later
-  it('should add a single user on a suscessful POST request for /createUsers', function(done){
-    chai.request(sever).post('/createUsers').send({'user_name': 'tester', 'user_email': 'tester@example.com', 'pwd': '123456'})
-      .end(function(error, response){
-        response.should.have.status(200);
-        response.should.to.be.html;
-        response.text.should.be.equal("check suscess, will enable add to database later");
-        done();
-      });
-  });
+
+
+  // this test is nolonger usable since we enabled the database connection
+  
+  // it('should add a single user on a suscessful POST request for /createUsers', function(done){
+  //   chai.request(sever).post('/createUsers').send({'user_name': 'tester', 'user_email': 'tester@example.com', 'pwd': '123456'})
+  //     .end(function(error, response){
+  //       response.should.have.status(200);
+  //       response.should.to.be.html;
+  //       response.text.should.be.equal("check suscess, will enable add to database later");
+  //       done();
+  //     });
+  // });
 
   it('should send user name already exist bad POST request for /createUsers', function(done){
     chai.request(sever).post('/createUsers').send({'user_name': 'Jerry', 'user_email': 'tester@example.com', 'pwd': '123456'})

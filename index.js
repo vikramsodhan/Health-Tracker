@@ -145,7 +145,7 @@ app.delete('/users/:id', db.deleteUser)
 
 
 // the post request by client. eg. adduser; change the Database,etc
-// Still in work, not connect to database yet
+// Have connect to database; will improve in iteration 2
 app.post('/createUsers', db.createUser);
 
 

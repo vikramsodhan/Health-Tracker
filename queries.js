@@ -35,6 +35,8 @@ const createUser = async (request, response) => {
   var userName = request.body.user_name;
   // email is not allowed to be case senstive
   var userEmail = request.body.user_email.toLowerCase();
+
+  var userPassword = request.body.pwd;
   // before add to database we also need to verify the input
   // to see if user are in the database or not
 
@@ -57,14 +59,21 @@ const createUser = async (request, response) => {
 
   // now we can safely add new user
 
-  response.send('check suscess, will enable add to database later');
+  pool.query('INSERT INTO test_users (name, email, password) VALUES ($1, $2, $3) RETURNING id', [userName, userEmail, userPassword], (error, results) => {
+    if (error) {
+      throw error
+    }
+    // redirect to login page after 3 seconds
+    response.status(201).send(`User added with ID: ${results.rows[0].id}
+    <script>
+      setTimeout(function () {
+        window.location.href = "/login.html";
+      }, 3000);
+    </script>
+      `);
 
-  // pool.query('INSERT INTO test_users (name, email) VALUES ($1, $2) RETURNING id', [userName, userEmail], (error, results) => {
-  //   if (error) {
-  //     throw error
-  //   }
-  //   response.status(201).send(`User added with ID: ${results.rows[0].id}`)
-  // })
+
+  })
 }
 
 const updateUser = (request, response) => {
