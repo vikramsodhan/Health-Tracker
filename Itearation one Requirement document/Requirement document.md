@@ -19,4 +19,5 @@ Health Tracker is a web application which allows users to monitor and track thei
 #### As a User I want to see my Dashboard
 ![dashboard when sign in](dashboard when sign in.png)
 
-- invalid login
+- dashboard when not sign in
+![dashboard when not sign in](dashboard when not sign in.png)
