@@ -103,7 +103,7 @@ app.get('/db', async (req, res) => {
 // the user login authorization function
 // Note: the login html is not there yet
 app.post('/auth', async function(request, response) {
-	username = request.body.user_name;
+	var username = request.body.user_name;
 	var password = request.body.password;
   if (username && password) {
     // we might need to change it in the future, from test_users table to a new user table
@@ -130,7 +130,7 @@ app.get('/dashboard', function(request, response) {
 	if (request.session.loggedin) {
     // response.send('Welcome back, ' + request.session.username + '!');
     //goes to dashboard
-    var uname = {'name': username};
+    var uname = {'name': request.session.username};
     response.render('pages/dashboard', uname);
 	} else {
 		response.send('Please login to view this page!');
