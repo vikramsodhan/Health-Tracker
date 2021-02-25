@@ -54,6 +54,9 @@ app.use(session({
   //When the user closes the browser the cookie (and session) will be removed.
 }));
 
+
+
+
 // search for the public folder for file
 // the static request, such as a html page in the public folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -65,10 +68,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // the defalt page in heroku weill set in the view folder
 app.set('views', path.join(__dirname, 'views'));
+
+
 // the view engine will be ejs; the page will be ejs file
 // ejs - embedded java script
 app.set('view engine', 'ejs');
-
 
 
 
@@ -108,7 +112,7 @@ app.post('/auth', async function(request, response) {
       request.session.loggedin = true;
       request.session.username = username;
       request.session.uid = results.rows[0].id;
-      response.redirect('/home');
+      response.redirect('/dashboard');
     } else {
       response.status(400).send('Incorrect Username and/or Password!');
     }
@@ -122,14 +126,24 @@ app.post('/auth', async function(request, response) {
 
 
 // an example for login required page
-app.get('/home', function(request, response) {
+app.get('/dashboard', function(request, response) {
 	if (request.session.loggedin) {
-		response.send('Welcome back, ' + request.session.username + '!');
+    // response.send('Welcome back, ' + request.session.username + '!');
+    //goes to dashboard
+    var uname = {'name': request.session.username};
+    response.render('pages/dashboard', uname);
 	} else {
 		response.send('Please login to view this page!');
 	}
 	response.end();
 });
+
+
+
+
+
+
+
 
 
 
