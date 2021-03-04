@@ -12,6 +12,11 @@
 Health Tracker is a web application which allows users to monitor and track their health. Users will sign up which includes creating a profile of where they are at currently. Features of this application will be that the users can set up their individual weekly workout plans and have pre-set calories for the day. The application will also have tracking of the calories they consume. This will help the user achieve their health goals while providing an insight to their fitness. Other possible features include having reminders if goals are met or asking if they have done the work.
 
 
+### Unit Test
+The unit tests are in the test folder. To run the test, you need to install mocha.
+[Youtube video on how to install mocha and run the test](https://youtu.be/LEmyIRD_siw)
+
+
 ### Associate the Heroku app with the repository
 
 ```
