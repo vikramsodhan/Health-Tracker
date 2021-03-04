@@ -14,7 +14,7 @@ describe('Users', function(){
 
 
   // this test is nolonger usable since we enabled the database connection
-  
+
   // it('should add a single user on a suscessful POST request for /createUsers', function(done){
   //   chai.request(sever).post('/createUsers').send({'user_name': 'tester', 'user_email': 'tester@example.com', 'pwd': '123456'})
   //     .end(function(error, response){
@@ -44,6 +44,29 @@ describe('Users', function(){
         done();
       });
   });
+
+
+  it('should send not logged in warning for /dashboard', function(done){
+    chai.request(sever).get('/dashboard')
+      .end(function(error, response){
+        response.should.to.be.html;
+        response.should.have.status(400);
+        response.text.should.be.equal("Please login to view this page!");
+        done();
+      });
+  });
+
+  it('should send warning for /auth', function(done){
+    chai.request(sever).post('/auth').send({'user_name': 'Jerry', 'password': '12356'})
+      .end(function(error, response){
+        response.should.have.status(400);
+        response.should.to.be.html;
+        response.text.should.be.equal("Incorrect Username and/or Password!");
+        done();
+      });
+  });
+
+
 
 
 });
