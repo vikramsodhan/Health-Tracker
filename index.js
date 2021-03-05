@@ -86,6 +86,7 @@ app.use("/journal", journalRoutes);
 // the get request by client
 // get(route , request object, response object)
 // response object.rendering(something)
+
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/cool", (req, res) => res.send(cool()));
 app.get("/times", (req, res) => res.send(showTimes()));
@@ -121,21 +122,24 @@ app.post("/auth", async function (request, response) {
       request.session.loggedin = true;
       request.session.username = username;
       request.session.uid = results.rows[0].id;
-      response.redirect("/home");
+      response.redirect("/dashboard");
     } else {
-      response.send("Incorrect Username and/or Password!");
+      response.status(400).send("Incorrect Username and/or Password!");
     }
     response.end();
   } else {
-    response.send("Please enter Username and Password!");
+    response.status(400).send("Please enter Username and Password!");
     response.end();
   }
 });
 
 // an example for login required page
-app.get("/home", function (request, response) {
+app.get("/dashboard", function (request, response) {
   if (request.session.loggedin) {
-    response.send("Welcome back, " + request.session.username + "!");
+    // response.send('Welcome back, ' + request.session.username + '!');
+    //goes to dashboard
+    var uname = { name: request.session.username };
+    response.render("pages/dashboard", uname);
   } else {
     response.send("Please login to view this page!");
   }
@@ -151,7 +155,7 @@ app.delete("/users/:id", db.deleteUser);
 // end of testing set
 
 // the post request by client. eg. adduser; change the Database,etc
-// Still in work, not connect to database yet
+// Have connect to database; will improve in iteration 2
 app.post("/createUsers", db.createUser);
 
 // send() is just sending plain text, if we want to use formated pages(html)
