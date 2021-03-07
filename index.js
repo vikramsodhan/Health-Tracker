@@ -138,7 +138,23 @@ app.get('/dashboard', function(request, response) {
 	response.end();
 });
 
+app.get('/infoPage', function(request, response){
+  response.render('pages/infoPage');
 
+})
+
+app.get('/changeUname', function(request, response){
+  response.render('pages/changeUname');
+})
+
+app.get('/changePw', function(request, response){
+
+  response.render('pages/changePw');
+})
+
+app.get('/changeEmail', function(request, response){
+  response.render('pages/changeEmail');
+})
 
 
 
@@ -161,6 +177,13 @@ app.delete('/users/:id', db.deleteUser)
 // the post request by client. eg. adduser; change the Database,etc
 // Have connect to database; will improve in iteration 2
 app.post('/createUsers', db.createUser);
+
+app.post('/changeUname', db.changeUname);
+
+app.post('/changePw', db.changePw);
+
+app.post('/changeEmail', db.changeEmail);
+
 
 
 
