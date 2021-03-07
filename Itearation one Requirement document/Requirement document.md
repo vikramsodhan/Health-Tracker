@@ -21,3 +21,25 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 - dashboard when not sign in
 ![dashboard when not sign in](dashboard when not sign in.png)
+
+<br>
+
+--- 
+
+### User stories for Iteration 2
+
+#### As a User I want to change my user name
+
+- invalid username
+
+#### As a User I want to change my user email
+
+- invalid user email
+
+#### As a User I want to change my user password
+
+
+#### As a User I want to see my journal
+
+
+#### As a Guest I want to see the welcome page
