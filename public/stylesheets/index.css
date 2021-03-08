@@ -4,33 +4,25 @@ body{
   margin:0;
   /* background-color #87CEFA; */
   background-color: skyblue;
-  color: springgreen;
-  line-height: 1.6;
 }
-
-
-.the_box {
-  margin:0;
-  /* background-color #87CEFA; */
-  text-align: center;;
-  width: 600px;
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
   height: auto;
-  padding: 40px 40px;
-  background-color:skyblue;
-  border-radius: 20px;
-
-  margin: auto;
-
-  font-family: serif;
-  font-size: 30px;
-  line-height: 1.6;
-
 }
-
-
-#pic{
-  background-image: url('/logo_transparent.png');
-  height: 80vh;
-  background-size: cover;
-  background-position: center;;
+.centered {
+  font-size: 90px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.centered_2{
+  font-size: 90px;
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
