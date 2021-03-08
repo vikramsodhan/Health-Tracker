@@ -68,5 +68,17 @@ describe('Users', function(){
 
 
 
+});
 
+
+describe('Guest', function(){
+  // all of the test assocated with Guest
+  it('should able to see the welcome page', function(done){
+    chai.request(sever).get('/')
+      .end(function(error, response){
+        response.should.have.status(200);
+        response.should.to.be.html;
+        done();
+      });
+  });
 });

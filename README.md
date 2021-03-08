@@ -13,8 +13,17 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 
 ### Unit Test
-The unit tests are in the test folder. To run the test, you need to install mocha.
-[Youtube video on how to install mocha and run the test](https://youtu.be/LEmyIRD_siw)
+The unit tests are in the test folder. To run the test, you need to [install mocha](https://mochajs.org/#installation), along with all the dependencies listed in packge.json
+
+
+After you've installed mocha, cd to the project folder and run the following command to run the test
+
+```
+$ mocha --exit
+```
+<br>
+
+Here is a [Youtube demo video on how to install the test tool kit and run the test](https://youtu.be/LEmyIRD_siw)
 
 
 ### Associate the Heroku app with the repository
@@ -29,7 +38,7 @@ Assuming that you have [Postgres installed locally](https://devcenter.heroku.com
 ```
 $ heroku pg:psql
 ```
-  
+
 <br>
 
 
