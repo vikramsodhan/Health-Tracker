@@ -24,7 +24,7 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 <br>
 
---- 
+---
 
 ### User stories for Iteration 2
 
@@ -40,6 +40,9 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 
 #### As a User I want to see my journal
+
+
+#### As a User I want to add a journal entry
 
 
 #### As a Guest I want to see the welcome page
