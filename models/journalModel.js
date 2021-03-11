@@ -16,6 +16,17 @@ Journal.getAllJournal = () => {
   //   });
 };
 
+// Just returns some dummy data for front-end work
+Journal.dummyJournal = () => {
+  return [
+    {
+      title: "Journal Title",
+      date: new Date().toLocaleDateString(),
+      description: "This right here is test description babyyyyy",
+    },
+  ];
+};
+
 Journal.createJournalEntry = (uid, date, text) => {
   const queryString =
     "INSERT INTO journals (user_id, date, journal) VALUES ($1, $2, $3)";

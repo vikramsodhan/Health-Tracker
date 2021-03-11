@@ -11,18 +11,36 @@
 
     <%- include ("../../partials/nav.ejs") %>
 
-    <div class="container">
+    <!-- <div class="container">
         <h2>Journal Entries</h2>
 
         <ul>
             for each of the object in results
-            <% rows.forEach(function(r) { %>
+            <% journals.forEach(function(r) { %>
             <li> id: <%= r.user_id %> - date: <%= r.date %> - text: <%= r.journal %> </li>
             <% }); %>
         </ul>
         <a href="/journal/create">Add new entry</a>
-    </div>
+    </div> -->
 
+    <div class="container">
+        <h1 class="mb-4">Journal Entries</h1>
+        <a href="/journal/create" class="btn btn-success">New Journal</a>
+
+        <% journals.forEach(journal => { %>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title"><%= journal.title %></h4>
+                <div class="card-subtitle text-muted md-2">
+                    <%= journal.date %>
+                </div>
+                <div class="card-text mb-2">
+                    <%= journal.description%>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
 
 </body>
 
