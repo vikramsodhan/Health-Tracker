@@ -14,7 +14,7 @@ redirectLogin = (req, res, next) => {
 
 router.get("/", redirectLogin, journalController.journal_all);
 
-router.get("/:id");
+router.get("/:id", redirectLogin, journalController.show_specific_journal);
 
 router.get("/create", redirectLogin, journalController.journal_create_get);
 

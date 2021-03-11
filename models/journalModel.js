@@ -38,4 +38,10 @@ Journal.createJournalEntry = (uid, title, description, journal_text) => {
   return pool.query(queryString, queryParams);
 };
 
+// Gets a specified journal based on the primary_key of journal_id
+Journal.getSpecificJournal = (journal_id) => {
+  const queryString = `SELECT * from journals WHERE journal_id = ${journal_id}`;
+  return pool.query(queryString);
+};
+
 module.exports = Journal;

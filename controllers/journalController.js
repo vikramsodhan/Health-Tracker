@@ -32,6 +32,24 @@ const journal_all = (req, res) => {
 //   res.render("pages/journal/journal-home", { journals: journals });
 // };
 
+// renders the a specific journal entry in its entirety
+// uses the model to get the information from the database to pass to the view
+const show_specific_journal = (req, res) => {
+  journalModel
+    .getSpecificJournal(req.params.id)
+    .then((results) => {
+      journal = {
+        journal: results.rows[0],
+      };
+      console.log(results.rows);
+      res.render("pages/journal/specific-entry", journal);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send("Error occured in show_specific_journal");
+    });
+};
+
 const journal_create_get = (req, res) => {
   res.render("pages/journal/journal-create");
 };
@@ -57,4 +75,5 @@ module.exports = {
   journal_all,
   journal_create_get,
   journal_create_post,
+  show_specific_journal,
 };
