@@ -10,38 +10,41 @@ const journal_index = (req, res) => {
   });
 };
 
-// const journal_all = (req, res) => {
-//   journalModel
-//     .getAllJournal()
-//     .then((result) => {
-//       res.render("pages/journal/journal-home", result);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.send("Error occured in journal_all");
-//     });
-// };
+// Gets all the journals created by that specific user using their user id
+const journal_all = (req, res) => {
+  journalModel
+    .getAllJournal(req.session.uid)
+    .then((result) => {
+      journals = {
+        journals: result.rows,
+      };
+      res.render("pages/journal/journal-home", journals);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send("Error occured in journal_all");
+    });
+};
 
 // Using some dummy data to set up the front-end view for the journals
-const journal_all = (req, res) => {
-  journals = journalModel.dummyJournal();
-
-  res.render("pages/journal/journal-home", { journals: journals });
-};
+// const journal_all = (req, res) => {
+// //   journals = journalModel.dummyJournal();
+//   res.render("pages/journal/journal-home", { journals: journals });
+// };
 
 const journal_create_get = (req, res) => {
   res.render("pages/journal/journal-create");
 };
 
+// Gets the user_id, journal_title, journal_description, and journal_text to put into the database
+// Once done redirects to journal home page
 const journal_create_post = (req, res) => {
-  const uid = 15;
-  const date = new Date().toLocaleDateString();
+  const uid = req.session.uid;
+  const title = req.body.title;
+  const description = req.body.description;
   const journal_text = req.body.journal;
-  console.log("uid", uid);
-  console.log("date", date);
-  console.log("journal_text", journal_text);
   journalModel
-    .createJournalEntry(uid, date, journal_text)
+    .createJournalEntry(uid, title, description, journal_text)
     .then((result) => {
       res.redirect("/journal");
     })

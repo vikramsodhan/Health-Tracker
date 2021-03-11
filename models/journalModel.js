@@ -5,8 +5,9 @@ const pool = new Pool({
 
 const Journal = {};
 
-Journal.getAllJournal = () => {
-  let getUsersQuery = `SELECT * from journals ORDER BY date DESC`;
+// Gets all the journals by the specified user
+Journal.getAllJournal = (uid) => {
+  let getUsersQuery = `SELECT * from journals WHERE user_id = ${uid} ORDER BY date DESC`;
   return pool.query(getUsersQuery);
   //   return pool.query(getUsersQuery, (error, result) => {
   //     if (error) res.end(error);
@@ -27,10 +28,12 @@ Journal.dummyJournal = () => {
   ];
 };
 
-Journal.createJournalEntry = (uid, date, text) => {
+// Adds the new journal to the database
+Journal.createJournalEntry = (uid, title, description, journal_text) => {
   const queryString =
-    "INSERT INTO journals (user_id, date, journal) VALUES ($1, $2, $3)";
-  const queryParams = [uid, date, text];
+    "INSERT INTO journals (user_id, date, title, description, journal) VALUES ($1, $2, $3, $4, $5)";
+  const date = new Date().toLocaleDateString();
+  const queryParams = [uid, date, title, description, journal_text];
 
   return pool.query(queryString, queryParams);
 };

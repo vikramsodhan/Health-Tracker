@@ -3,10 +3,21 @@ const journalController = require("../controllers/journalController");
 
 const router = express.Router();
 
-router.get("/", journalController.journal_all);
+// Redirects users to the login page if they are not signed in
+redirectLogin = (req, res, next) => {
+  if (!req.session.loggedin) {
+    res.redirect("/login.html");
+  } else {
+    next();
+  }
+};
 
-router.get("/create", journalController.journal_create_get);
+router.get("/", redirectLogin, journalController.journal_all);
 
-router.post("/create", journalController.journal_create_post);
+router.get("/:id");
+
+router.get("/create", redirectLogin, journalController.journal_create_get);
+
+router.post("/create", redirectLogin, journalController.journal_create_post);
 
 module.exports = router;
