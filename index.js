@@ -139,22 +139,48 @@ app.get('/dashboard', function(request, response) {
 });
 
 app.get('/infoPage', function(request, response){
-  response.render('pages/infoPage');
+  if (request.session.loggedin){
+    response.render('pages/infoPage');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+  
 
-})
+});
 
 app.get('/changeUname', function(request, response){
-  response.render('pages/changeUname');
-})
+  if (request.session.loggedin){
+    response.render('pages/changeUname');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+});
 
 app.get('/changePw', function(request, response){
-
-  response.render('pages/changePw');
-})
+  if (request.session.loggedin){
+    response.render('pages/changePw');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+  
+});
 
 app.get('/changeEmail', function(request, response){
-  response.render('pages/changeEmail');
-})
+  if (request.session.loggedin){
+    response.render('pages/changeEmail');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+  
+});
 
 
 // the logout function
