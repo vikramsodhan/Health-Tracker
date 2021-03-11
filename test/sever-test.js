@@ -123,6 +123,16 @@ describe('Guest', function(){
       });
   });
 
+  it('should get login only warning on seeing user info', function(done){
+    chai.request(sever).get('/infoPage')
+      .end(function(error, response){
+        response.should.have.status(400);
+        response.should.to.be.html;
+        response.text.should.be.equal("Please login to view this page!");
+        done();
+      });
+  });
+
 
 
 
