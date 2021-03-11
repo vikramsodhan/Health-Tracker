@@ -157,7 +157,17 @@ app.get('/changeEmail', function(request, response){
 })
 
 
-
+// the logout function
+app.get('/logout', function(request, response){
+  if (request.session.loggedin) {
+    request.session.destroy(function (err) {
+		response.send('You are now logged out');
+  })
+	} else {
+    response.send('You already logged out.');
+	response.end();
+}
+})
 
 
 
