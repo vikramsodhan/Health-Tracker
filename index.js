@@ -133,7 +133,7 @@ app.get('/dashboard', function(request, response) {
     var uname = {'name': request.session.username};
     response.render('pages/dashboard', uname);
 	} else {
-		response.send('Please login to view this page!');
+		response.status(400).send('Please login to view this page!');
 	}
 	response.end();
 });
