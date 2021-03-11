@@ -67,6 +67,16 @@ describe('Users', function(){
   });
 
 
+  it('should send already log out', function(done){
+    chai.request(sever).get('/logout')
+      .end(function(error, response){
+        response.should.to.be.html;
+        response.text.should.be.equal("You already logged out.");
+        done();
+      });
+  });
+
+
 
 });
 
@@ -81,4 +91,39 @@ describe('Guest', function(){
         done();
       });
   });
+
+  it('should get login only warning on change pwd', function(done){
+    chai.request(sever).get('/changePw')
+      .end(function(error, response){
+        response.should.have.status(400);
+        response.should.to.be.html;
+        response.text.should.be.equal("Please login to view this page!");
+        done();
+      });
+  });
+
+  it('should get login only warning on change user name', function(done){
+    chai.request(sever).get('/changeUname')
+      .end(function(error, response){
+        response.should.have.status(400);
+        response.should.to.be.html;
+        response.text.should.be.equal("Please login to view this page!");
+        done();
+      });
+  });
+
+
+  it('should get login only warning on change user email', function(done){
+    chai.request(sever).get('/changeEmail')
+      .end(function(error, response){
+        response.should.have.status(400);
+        response.should.to.be.html;
+        response.text.should.be.equal("Please login to view this page!");
+        done();
+      });
+  });
+
+
+
+
 });
