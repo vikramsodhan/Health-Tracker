@@ -77,19 +77,6 @@ app.set("view engine", "ejs");
 
 // journal routes
 app.use("/journal", journalRoutes);
-// app.get("/journal", (req, res) => {
-//   let getUsersQuery = `SELECT * from journals ORDER BY date DESC`;
-//   pool.query(getUsersQuery, (error, result) => {
-//     if (error) res.end(error);
-//     const results = { rows: result.rows };
-//     res.render("pages/journal/journal-home", results);
-//   });
-//   // res.render("pages/journal");
-// });
-
-// the get request by client
-// get(route , request object, response object)
-// response object.rendering(something)
 
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/cool", (req, res) => res.send(cool()));

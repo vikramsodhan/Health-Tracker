@@ -1,15 +1,6 @@
 // journal_all, journal_details, journal_create_get, journal_create_post, journal_delete
 const journalModel = require("../models/journalModel");
 
-const journal_index = (req, res) => {
-  let getUsersQuery = `SELECT * from journals ORDER BY date DESC`;
-  pool.query(getUsersQuery, (error, result) => {
-    if (error) res.end(error);
-    const results = { rows: result.rows };
-    res.render("pages/journal/journal-home", results);
-  });
-};
-
 // Gets all the journals created by that specific user using their user id
 const journal_all = (req, res) => {
   journalModel
@@ -25,12 +16,6 @@ const journal_all = (req, res) => {
       res.send("Error occured in journal_all");
     });
 };
-
-// Using some dummy data to set up the front-end view for the journals
-// const journal_all = (req, res) => {
-// //   journals = journalModel.dummyJournal();
-//   res.render("pages/journal/journal-home", { journals: journals });
-// };
 
 // renders the a specific journal entry in its entirety
 // uses the model to get the information from the database to pass to the view
