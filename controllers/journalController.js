@@ -41,7 +41,6 @@ const show_specific_journal = (req, res) => {
       journal = {
         journal: results.rows[0],
       };
-      console.log(results);
       res.render("pages/journal/specific-entry", journal);
     })
     .catch((err) => {
@@ -98,20 +97,18 @@ const journal_create_post = (req, res) => {
 };
 
 // using the journal id update the journal entry with requested information given by user
-// once done redirects to journal home page
+// once done redirects to that specific journal page
 const journal_update_post = (req, res) => {
+  const { title, description, journal } = req.body;
+
   journalModel
-    .getSpecificJournal(req.params.id)
+    .updateJournalEntry(req.params.id, title, description, journal)
     .then((results) => {
-      journal = {
-        journal: results.rows[0],
-      };
-      console.log(results);
-      res.render("pages/journal/edit-entry", journal);
+      res.redirect(`/journal/${req.params.id}`);
     })
     .catch((err) => {
       console.log(err);
-      res.send("Error occured in journal_update_put");
+      res.send("Error occured in journal_update_post");
     });
 };
 

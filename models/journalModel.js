@@ -7,7 +7,7 @@ const Journal = {};
 
 // Gets all the journals by the specified user
 Journal.getAllJournal = (uid) => {
-  let getUsersQuery = `SELECT * from journals WHERE user_id = ${uid} ORDER BY date DESC`;
+  let getUsersQuery = `SELECT * from journals WHERE user_id = ${uid} ORDER BY journal_id DESC`;
   return pool.query(getUsersQuery);
   //   return pool.query(getUsersQuery, (error, result) => {
   //     if (error) res.end(error);
@@ -42,6 +42,15 @@ Journal.createJournalEntry = (uid, title, description, journal_text) => {
 Journal.getSpecificJournal = (journal_id) => {
   const queryString = `SELECT * from journals WHERE journal_id = ${journal_id}`;
   return pool.query(queryString);
+};
+
+// Updates a journal entry with the given inputs
+Journal.updateJournalEntry = (journal_id, title, description, journal_text) => {
+  const queryString =
+    "UPDATE journals SET (title, description, journal) = ($1, $2, $3) WHERE journal_id = $4";
+  const queryParams = [title, description, journal_text, journal_id];
+
+  return pool.query(queryString, queryParams);
 };
 
 module.exports = Journal;

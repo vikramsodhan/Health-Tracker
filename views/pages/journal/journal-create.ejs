@@ -11,22 +11,10 @@
 
     <%- include ("../../partials/nav.ejs") %>
 
-    <!-- <div class="container">
-        <h2>Create a Journal Entry</h2>
-
-        <form action="/journal/create" method="POST">
-            <input type="date" name="date">
-            <textarea name="journal" rows="5" cols="33">
-                Journal Entry here...</textarea>
-            <input type="submit">
-        </form>
-
-    </div> -->
-
     <div class="container">
         <h1 class="mb-4">New Journal</h1>
-
-        <form action="/journal/<%= (journal.title)? 'edit/:id':'create'%>" method="POST">
+        <!-- I do my form handling of update vs post here in the ternary operator -->
+        <form action="/journal/<%= (journal.title)? 'edit/'+journal.journal_id :'create'%>" method="POST">
             <%- include('_form_fields_partial') %>
         </form>
     </div>
