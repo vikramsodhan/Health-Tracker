@@ -41,7 +41,7 @@ const show_specific_journal = (req, res) => {
       journal = {
         journal: results.rows[0],
       };
-      console.log(results.rows);
+      console.log(results);
       res.render("pages/journal/specific-entry", journal);
     })
     .catch((err) => {
@@ -50,8 +50,33 @@ const show_specific_journal = (req, res) => {
     });
 };
 
+// This generates the page where we can either update/create new journal entries
+// pass dummy data in so we get emtpy field-boxes for the form for new entries
 const journal_create_get = (req, res) => {
-  res.render("pages/journal/journal-create");
+  if (req.params.id) {
+    journalModel
+      .getSpecificJournal(req.params.id)
+      .then((results) => {
+        journal = {
+          journal: results.rows[0],
+        };
+        console.log(results);
+        res.render("pages/journal/journal-create", journal);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.send("Error occured in journal_create_get");
+      });
+  } else {
+    const dummyData = {
+      journal: {
+        title: "",
+        description: "",
+        journal: "",
+      },
+    };
+    res.render("pages/journal/journal-create", dummyData);
+  }
 };
 
 // Gets the user_id, journal_title, journal_description, and journal_text to put into the database
@@ -64,16 +89,36 @@ const journal_create_post = (req, res) => {
   journalModel
     .createJournalEntry(uid, title, description, journal_text)
     .then((result) => {
-      res.redirect("/journal");
+      res.redirect("/journal/");
     })
     .catch((error) => {
       console.log(error);
       res.send("Error occured in Journal_create_post");
     });
 };
+
+// using the journal id update the journal entry with requested information given by user
+// once done redirects to journal home page
+const journal_update_post = (req, res) => {
+  journalModel
+    .getSpecificJournal(req.params.id)
+    .then((results) => {
+      journal = {
+        journal: results.rows[0],
+      };
+      console.log(results);
+      res.render("pages/journal/edit-entry", journal);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send("Error occured in journal_update_put");
+    });
+};
+
 module.exports = {
   journal_all,
   journal_create_get,
   journal_create_post,
   show_specific_journal,
+  journal_update_post,
 };

@@ -1,14 +1,14 @@
 <div class="form-group">
     <label for="title">Title</label>
-    <input required type="text" name="title" id="title" class="form-control">
+    <input required type="text" name="title" id="title" class="form-control" value="<%=journal.title%>">
 </div>
 <div class="form-group">
     <label for="description">Description</label>
-    <textarea name="description" id="description" class="form-control"></textarea>
+    <textarea name="description" id="description" class="form-control"><%=journal.description%></textarea>
 </div>
 <div class="form-group">
     <label for="journal"> Journal</label>
-    <textarea name="journal" id="journal" class="form-control"></textarea>
+    <textarea name="journal" id="journal" class="form-control"><%=journal.journal%></textarea>
 </div>
 <a href="/journal" class="btn btn-secondary">Cancel</a>
 

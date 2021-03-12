@@ -25,7 +25,8 @@
 
     <div class="container">
         <h1 class="mb-4">New Journal</h1>
-        <form action="/journal/create" method="POST">
+
+        <form action="/journal/<%= (journal.title)? 'edit/:id':'create'%>" method="POST">
             <%- include('_form_fields_partial') %>
         </form>
     </div>
