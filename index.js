@@ -133,10 +133,43 @@ app.get('/dashboard', function(request, response) {
     var uname = {'name': request.session.username};
     response.render('pages/dashboard', uname);
 	} else {
-		response.send('Please login to view this page!');
+		response.status(400).send('Please login to view this page!');
 	}
 	response.end();
 });
+
+app.get('/infoPage', function(request, response){
+  response.render('pages/infoPage');
+
+})
+
+app.get('/changeUname', function(request, response){
+  response.render('pages/changeUname');
+})
+
+app.get('/changePw', function(request, response){
+
+  response.render('pages/changePw');
+})
+
+app.get('/changeEmail', function(request, response){
+  response.render('pages/changeEmail');
+})
+
+
+// the logout function
+app.get('/logout', function(request, response){
+  if (request.session.loggedin) {
+    request.session.destroy(function (err) {
+		response.send('You are now logged out');
+  })
+	} else {
+    response.send('You already logged out.');
+	response.end();
+}
+})
+
+
 
 
 
@@ -154,6 +187,13 @@ app.delete('/users/:id', db.deleteUser)
 // the post request by client. eg. adduser; change the Database,etc
 // Have connect to database; will improve in iteration 2
 app.post('/createUsers', db.createUser);
+
+app.post('/changeUname', db.changeUname);
+
+app.post('/changePw', db.changePw);
+
+app.post('/changeEmail', db.changeEmail);
+
 
 
 
