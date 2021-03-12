@@ -4,7 +4,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var sever = require('../index'); // remenber the fact we exported the app, the "module.exports = app;"
 var should = chai.should(); // a "bunch of assersion" in chai
-
+var expect = chai.expect;
 chai.use(chaiHttp); // if we ever need a http call
 
 // set of test
@@ -66,6 +66,33 @@ describe('Users', function(){
       });
   });
 
+  it('should log in', function(done){
+    var agent = chai.request.agent(sever);
+
+    agent.post('/auth').send({'user_name': 'Jerry', 'password': '123456'})
+      .end(function(error, response){
+        response.should.to.redirect;
+        response.should.to.be.html;
+        agent.close()
+        done();
+      });
+  });
+
+
+  it('should send log out', function(done){
+    var agent = chai.request.agent(sever);
+
+    agent.post('/auth').send({'user_name': 'Jerry', 'password': '123456'})
+      .then(function(response){
+        return agent.get('/logout');
+      })
+      .then(function(response){
+        expect(response).to.be.html;
+        expect(response.text).be.equal("You are now logged out");
+        done();
+      }).catch(done);
+  });
+
 
   it('should send already log out', function(done){
     chai.request(sever).get('/logout')
@@ -75,6 +102,23 @@ describe('Users', function(){
         done();
       });
   });
+
+
+  it('should be able to see journal page', function(done){
+    var agent = chai.request.agent(sever);
+
+    agent.post('/auth').send({'user_name': 'Jerry', 'password': '123456'})
+      .then(function(response){
+        return agent.get('/journal');
+      })
+      .then(function(response){
+        expect(response).to.be.html;
+        expect(response).to.have.status(200);
+        done();
+      }).catch(done);
+  });
+
+
 
 
 
@@ -133,7 +177,14 @@ describe('Guest', function(){
       });
   });
 
-
+  it('should redirect to login page', function(done){
+    chai.request(sever).get('/journal')
+      .end(function(error, response){
+        response.should.to.be.html;
+        response.should.to.redirect;
+        done();
+      });
+  });
 
 
 });
