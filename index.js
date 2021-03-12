@@ -130,13 +130,74 @@ app.get("/dashboard", function (request, response) {
   if (request.session.loggedin) {
     // response.send('Welcome back, ' + request.session.username + '!');
     //goes to dashboard
-    var uname = { name: request.session.username };
-    response.render("pages/dashboard", uname);
-  } else {
-    response.send("Please login to view this page!");
+    var uname = {'name': request.session.username};
+    response.render('pages/dashboard', uname);
+	} else {
+		response.status(400).send('Please login to view this page!');
+	}
+	response.end();
+});
+
+app.get('/infoPage', function(request, response){
+  if (request.session.loggedin){
+    response.render('pages/infoPage');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+  
+
+});
+
+app.get('/changeUname', function(request, response){
+  if (request.session.loggedin){
+    response.render('pages/changeUname');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
   }
   response.end();
 });
+
+app.get('/changePw', function(request, response){
+  if (request.session.loggedin){
+    response.render('pages/changePw');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+  
+});
+
+app.get('/changeEmail', function(request, response){
+  if (request.session.loggedin){
+    response.render('pages/changeEmail');
+  }
+  else {
+    response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+  
+});
+
+
+// the logout function
+app.get('/logout', function(request, response){
+  if (request.session.loggedin) {
+    request.session.destroy(function (err) {
+		response.send('You are now logged out');
+  })
+	} else {
+    response.send('You already logged out.');
+	response.end();
+}
+})
+
+
+
+
 
 // the following set is for testing only
 app.get("/users", db.getUsers);
@@ -148,7 +209,17 @@ app.delete("/users/:id", db.deleteUser);
 
 // the post request by client. eg. adduser; change the Database,etc
 // Have connect to database; will improve in iteration 2
-app.post("/createUsers", db.createUser);
+app.post('/createUsers', db.createUser);
+
+app.post('/changeUname', db.changeUname);
+
+app.post('/changePw', db.changePw);
+
+app.post('/changeEmail', db.changeEmail);
+
+
+
+
 
 // send() is just sending plain text, if we want to use formated pages(html)
 // we need to use the render function

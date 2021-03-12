@@ -87,6 +87,88 @@ const createUser = async (request, response) => {
   );
 };
 
+const changeUname = async (request, response) => {
+  var userName = request.body.user_name;
+  var userID = request.session.uid;
+
+  // check username
+  check = await pool.query('SELECT * FROM test_users WHERE name = $1', [userName]);
+  if (check.rows.length){
+    console.log('find existing user name')
+    response.status(400).send('User name already used for registration');
+    response.end();
+    return false;
+  }
+
+  //now change username
+  pool.query(
+    'UPDATE test_users SET name = $1 where id = $2', [userName, userID],
+    (error, results) => {
+      if (error){
+        throw error
+      }
+      response.status(200).send('username changed, please log in again')
+    }
+  )
+
+}
+
+const changePw = async (request, response) => {
+  var newPw = request.body.pwd;
+  var currPw = request.body.curr_pwd;
+  var userID = request.session.uid;
+
+  // check if current user's password matches what was typed into the form
+  check = await pool.query('SELECT * FROM test_users WHERE id = $1 AND password = $2', [userID, currPw]);
+  if (check.rows.length){
+    // now change password
+    pool.query(
+      'UPDATE test_users SET password = $1 WHERE id = $2', [newPw, userID],
+      (error, results) => {
+        if (error){
+          throw error
+        }
+        response.status(200).send('password changed, please log in again')
+      }
+    )
+  }
+  else{
+    console.log('current password entered is incorrect')
+    response.status(400).send('current password entered is incorrect');
+    response.end();
+    return false;
+  }
+
+
+}
+
+const changeEmail = async (request, response) => {
+  var email = request.body.user_email;
+  var userID = request.session.uid;
+
+  // check email
+  var check = await pool.query('SELECT * FROM test_users WHERE email = $1', [email]);
+  if (check.rows.length){
+    console.log('find existing email')
+    response.status(400).send('Email already used for registration');
+    response.end();
+    return false;
+  }
+
+  // change email
+  pool.query(
+    'UPDATE test_users SET email = $1 WHERE id = $2', [email, userID],
+    (error, results) => {
+      if (error){
+        throw error
+      }
+      response.status(200).send('email changed')
+    }
+  )
+
+
+}
+
 const updateUser = (request, response) => {
   const id = parseInt(request.params.id);
   const { name, email } = request.body;
@@ -120,4 +202,7 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-};
+  changeUname,
+  changePw,
+  changeEmail,
+}
