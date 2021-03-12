@@ -26,23 +26,35 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 ---
 
-### User stories for Iteration 2
+### Added User stories for Iteration 2
 
 #### As a User I want to change my user name
-
+![change user name](change username.png)
 - invalid username
+![invalid username](invalid username.png)
 
 #### As a User I want to change my user email
-
+![change my user email](change my user email.png)
 - invalid user email
+![invalid user email](invalid user email.png)
 
 #### As a User I want to change my user password
+![change my user password](change my user password.png)
 
+#### As a User I want to log out
+![log out](log out.png)
 
-#### As a User I want to see my journal
-
+#### As a User I want to see my journal page
+![journal page](journal page.png)
 
 #### As a User I want to add a journal entry
+![add a journal entry](add a journal entry.png)
 
+#### As a User I want to edit a journal entry
+![edit a journal entry](edit a journal entry.png)
+
+#### As a User I want to delete a journal entry
+![delete a journal entry](delete a journal entry.png)
 
 #### As a Guest I want to see the welcome page
+![welcome page](welcome page.png)
