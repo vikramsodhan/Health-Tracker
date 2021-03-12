@@ -7,11 +7,15 @@ body {
   line-height: 1.6;
 }
 
-.text {
+#text h1 {
+  line-height: 1.2;
+}
+#text {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content:center ;
   align-items: center;
   text-align: center;
-  padding: 160px 660px;
+  padding: 0px 20px;
 }
