@@ -19,17 +19,18 @@ const PORT = process.env.PORT || 5000;
 // use this module to connect to the database specified
 // in DATABASE_URL environment variable
 const { Pool } = require("pg");
-// const pool = new Pool({
-//   connectionString:
-//     "postgres://qmhjjvbobislut:296744d793ff9f01b689a6a5dd593b89fc63f4e5659dcc67a9565d5eb6dfbf4f@ec2-52-22-135-159.compute-1.amazonaws.com:5432/ddmnarisnlpo56",
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
 const pool = new Pool({
-  connectionString: "postgres://postgres@localhost/users",
+  connectionString:
+    "postgres://qmhjjvbobislut:296744d793ff9f01b689a6a5dd593b89fc63f4e5659dcc67a9565d5eb6dfbf4f@ec2-52-22-135-159.compute-1.amazonaws.com:5432/ddmnarisnlpo56",
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
+// This was used to connect locally to a database
+// const pool = new Pool({
+//   connectionString: "postgres://postgres@localhost/users",
+// });
 
 // this is our app
 var app = express();

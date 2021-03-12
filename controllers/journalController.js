@@ -9,11 +9,11 @@ const journal_all = (req, res) => {
       journals = {
         journals: result.rows,
       };
-      res.render("pages/journal/journal-home", journals);
+      res.status(200).render("pages/journal/journal-home", journals);
     })
     .catch((err) => {
       console.log(err);
-      res.send("Error occured in journal_all");
+      res.status(400).send("Error occured in journal_all");
     });
 };
 
@@ -26,11 +26,11 @@ const show_specific_journal = (req, res) => {
       journal = {
         journal: results.rows[0],
       };
-      res.render("pages/journal/specific-entry", journal);
+      res.status(200).render("pages/journal/specific-entry", journal);
     })
     .catch((err) => {
       console.log(err);
-      res.send("Error occured in show_specific_journal");
+      res.status(400).send("Error occured in show_specific_journal");
     });
 };
 
@@ -44,11 +44,11 @@ const journal_create_get = (req, res) => {
         journal = {
           journal: results.rows[0],
         };
-        res.render("pages/journal/journal-create", journal);
+        res.status(200).render("pages/journal/journal-create", journal);
       })
       .catch((err) => {
         console.log(err);
-        res.send("Error occured in journal_create_get");
+        res.status(400).send("Error occured in journal_create_get");
       });
   } else {
     const dummyData = {
@@ -58,7 +58,7 @@ const journal_create_get = (req, res) => {
         journal: "",
       },
     };
-    res.render("pages/journal/journal-create", dummyData);
+    res.status(200).render("pages/journal/journal-create", dummyData);
   }
 };
 
@@ -72,11 +72,11 @@ const journal_create_post = (req, res) => {
   journalModel
     .createJournalEntry(uid, title, description, journal_text)
     .then((result) => {
-      res.redirect("/journal/");
+      res.status(303).redirect("/journal/");
     })
     .catch((error) => {
       console.log(error);
-      res.send("Error occured in Journal_create_post");
+      res.status(400).send("Error occured in Journal_create_post");
     });
 };
 
@@ -88,11 +88,11 @@ const journal_update_post = (req, res) => {
   journalModel
     .updateJournalEntry(req.params.id, title, description, journal)
     .then((results) => {
-      res.redirect(`/journal/${req.params.id}`);
+      res.status(303).redirect(`/journal/${req.params.id}`);
     })
     .catch((err) => {
       console.log(err);
-      res.send("Error occured in journal_update_post");
+      res.status(400).send("Error occured in journal_update_post");
     });
 };
 
@@ -101,11 +101,11 @@ const journal_delete = (req, res) => {
   journalModel
     .deleteJournal(req.params.id)
     .then((results) => {
-      res.redirect("/journal");
+      res.status(303).redirect("/journal");
     })
     .catch((err) => {
       console.log(err);
-      res.send("Error occured in journal_delete");
+      res.status(400).send("Error occured in journal_delete");
     });
 };
 
