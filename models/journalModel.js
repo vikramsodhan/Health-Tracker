@@ -1,6 +1,16 @@
 const { Pool } = require("pg");
+// for local database
+// const pool = new Pool({
+//   connectionString: "postgres://postgres@localhost/users",
+// });
+
+// for production heroku database
 const pool = new Pool({
-  connectionString: "postgres://postgres@localhost/users",
+  connectionString:
+    "postgres://qmhjjvbobislut:296744d793ff9f01b689a6a5dd593b89fc63f4e5659dcc67a9565d5eb6dfbf4f@ec2-52-22-135-159.compute-1.amazonaws.com:5432/ddmnarisnlpo56",
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 const Journal = {};
