@@ -6,6 +6,7 @@ const path = require("path"); // a libary/PKG; pre-installed with java script
 var session = require("express-session"); // used for login
 var bodyParser = require("body-parser");
 var cors = require("cors"); // cross-origon resourse sharing
+const methodOverride = require("method-override"); //html forms only give GET/POST options need override for PUT/DELETE etc
 
 // CRUD functions in a REST API
 const db = require("./queries");
@@ -62,6 +63,9 @@ app.use(
 // search for the public folder for file
 // the static request, such as a html page in the public folder
 app.use(express.static(path.join(__dirname, "public")));
+
+// use ?_method="ENTER METHOD HERE" at the end of action links in forms
+app.use(methodOverride("_method"));
 
 //-------------------------------
 

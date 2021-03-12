@@ -53,4 +53,10 @@ Journal.updateJournalEntry = (journal_id, title, description, journal_text) => {
   return pool.query(queryString, queryParams);
 };
 
+// Deletes a the requested journal from the database
+Journal.deleteJournal = (journal_id) => {
+  const queryString = `DELETE FROM journals WHERE journal_id = ${journal_id}`;
+  return pool.query(queryString);
+};
+
 module.exports = Journal;

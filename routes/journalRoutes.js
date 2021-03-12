@@ -20,10 +20,12 @@ router.post("/create", redirectLogin, journalController.journal_create_post);
 
 router.get("/edit/:id", redirectLogin, journalController.journal_create_get);
 
-// In the form_fields_partials I handle the difference between post(creating) and post(updating) data.
+// In the form_fields_partials I handle the difference between post(creating) and put(updating) data.
 // In the ternary operator
-router.post("/edit/:id", redirectLogin, journalController.journal_update_post);
+router.put("/edit/:id", redirectLogin, journalController.journal_update_post);
 
 router.get("/:id", redirectLogin, journalController.show_specific_journal);
+
+router.delete("/delete/:id", redirectLogin, journalController.journal_delete);
 
 module.exports = router;

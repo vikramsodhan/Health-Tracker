@@ -59,7 +59,6 @@ const journal_create_get = (req, res) => {
         journal = {
           journal: results.rows[0],
         };
-        console.log(results);
         res.render("pages/journal/journal-create", journal);
       })
       .catch((err) => {
@@ -112,10 +111,24 @@ const journal_update_post = (req, res) => {
     });
 };
 
+// tells the model to delete the requested journal and then updates view to journal-home
+const journal_delete = (req, res) => {
+  journalModel
+    .deleteJournal(req.params.id)
+    .then((results) => {
+      res.redirect("/journal");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send("Error occured in journal_delete");
+    });
+};
+
 module.exports = {
   journal_all,
   journal_create_get,
   journal_create_post,
   show_specific_journal,
   journal_update_post,
+  journal_delete,
 };
