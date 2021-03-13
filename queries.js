@@ -107,6 +107,8 @@ const changeUname = async (request, response) => {
       if (error){
         throw error
       }
+      request.session.username = userName;
+      console.log(request.session);
       response.status(200).send('username changed, please log in again')
     }
   )
