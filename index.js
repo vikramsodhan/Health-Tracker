@@ -146,7 +146,7 @@ app.get('/infoPage', function(request, response){
     response.status(400).send('Please login to view this page!');
   }
   response.end();
-  
+
 
 });
 
@@ -168,7 +168,7 @@ app.get('/changePw', function(request, response){
     response.status(400).send('Please login to view this page!');
   }
   response.end();
-  
+
 });
 
 app.get('/changeEmail', function(request, response){
@@ -179,7 +179,7 @@ app.get('/changeEmail', function(request, response){
     response.status(400).send('Please login to view this page!');
   }
   response.end();
-  
+
 });
 
 
@@ -221,11 +221,6 @@ app.post('/changeEmail', db.changeEmail);
 
 
 
-// send() is just sending plain text, if we want to use formated pages(html)
-// we need to use the render function
-// res.send(`username: ${userName} <br>
-//   useremail: ${userEmail} <br>
-//   Hello!`);
 
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
