@@ -211,11 +211,11 @@ app.delete("/users/:id", db.deleteUser);
 // Have connect to database; will improve in iteration 2
 app.post('/createUsers', db.createUser);
 
-app.post('/changeUname', db.changeUname);
+app.put('/changeUname', db.changeUname);
 
-app.post('/changePw', db.changePw);
+app.put('/changePw', db.changePw);
 
-app.post('/changeEmail', db.changeEmail);
+app.put('/changeEmail', db.changeEmail);
 
 
 
