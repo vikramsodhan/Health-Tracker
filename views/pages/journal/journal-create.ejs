@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>New Journals</title>
+    <%- include ("../../partials/journal_header.ejs") %>
+</head>
+
+<body>
+
+    <%- include ("../../partials/nav.ejs") %>
+
+    <div class="container">
+        <h1 class="mb-4">New Journal</h1>
+        <!-- I do my form handling of update vs post here in the ternary operator -->
+        <form action="/journal/<%= (journal.title)? 'edit/'+journal.journal_id+'?_method=PUT' :'create'%>"
+            method="POST">
+            <%- include('_form_fields_partial') %>
+        </form>
+    </div>
+</body>
+
+</html>

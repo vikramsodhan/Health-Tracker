@@ -42,10 +42,6 @@ ul.list li input[type="submit"] {
   color:white;
 }
 
-ul.list li:nth-child(7){
-   text-decoration: underline;
-}
-
-ul.list li:nth-child(8){
+ul.list li:nth-child(6){
    text-decoration: underline;
 }

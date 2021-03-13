@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%=journal.title%>></title>
+    <%- include ("../../partials/journal_header.ejs") %>
+</head>
+
+<body>
+
+    <%- include ("../../partials/nav.ejs") %>
+
+    <div class="container">
+        <h1 class="mb-4"> <%= journal.title %></h1>
+        <div class="text-muted mb-2">
+            <%= journal.date.toLocaleDateString() %>
+        </div>
+        <a href="/journal" class="btn btn-secondary"> All Journals</a>
+        <a href="/journal/edit/<%=journal.journal_id%>" class="btn btn-info"> Edit</a>
+        <form action="delete/<%= journal.journal_id%>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <div class="mt-4">
+            <%= journal.journal%>
+        </div>
+    </div>
+
+</body>
+
+</html>

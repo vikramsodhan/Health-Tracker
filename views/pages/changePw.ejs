@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Change password</title>
+    <link rel="stylesheet" href="./stylesheets/myformStyle.css">
+  </head>
+  <body>
+
+
+  <div class="my_form_box">
+       <form class="" action="/changePw?_method=PUT" method="post" onsubmit="return validateForm()" >
+      <ul class="list">
+      <li><h2>Change password</h2></li>
+      <li><input id="curr_pwd" type="password" name="curr_pwd" value="" placeholder="Enter your current password"></li>
+      <li><input id="pwd_1" type="password" name="pwd" value="" placeholder="Enter your new password" required></li>
+          <p id="pwd_validation">
+      <li><input id="pwd_2" type="password" name="re_pwd" value="" placeholder="Retype your new password" required></li>
+      <li><input type="submit" name="sub" value="Change password"></li>
+    </ul>
+    </form>
+  </div>
+
+
+    <script>
+    function validateForm() {
+    var pwd1, pwd2, text;
+
+    // Get the value of the input field with id
+    pwd1 = document.getElementById("pwd_1").value;
+    pwd2 = document.getElementById("pwd_2").value;
+
+
+    // If two pwd are not the same, print err msg
+    if (pwd1 != pwd2) {
+      text = "Password does not match, please make sure you entered the same password below";
+      // create the object list
+      var obj = document.querySelectorAll('[id="pwd_validation"]');
+      for (item in obj){
+    	   obj[item].innerHTML = text;
+       }
+       return false;
+     }
+    }
+    </script>
+
+  </body>
+
+</html>
