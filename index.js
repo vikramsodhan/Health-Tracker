@@ -219,9 +219,35 @@ app.put('/changePw', db.changePw);
 app.put('/changeEmail', db.changeEmail);
 
 
+// ---- testing API------
+app.get("/food_find/:item",function(request, response){
+  var food_key = request.params.item;
+  var search_string = "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + food_key;
+  // the code snippet with modification
+  var APIreq = unirest("GET", search_string);
+  APIreq.query({
+	   "fields": "item_name,brand_name,nf_calories,nf_total_fat"
+  });
+
+  APIreq.headers({
+	   "x-rapidapi-key": "c5ad188f44msh9574928a03a1d31p1b67cejsncca1a8dc9f44",
+     "x-rapidapi-host": "nutritionix-api.p.rapidapi.com",
+     "useQueryString": true
+  });
+
+  APIreq.end(function (res) {
+    if (res.error) throw new Error(req.error);
+
+    var data = res.body.hits;
+    var results = { results: data };
+    response.render("pages/food_result", results);
+    });
+
+});
 
 
 
+// ---- finished testing API------
 
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include ("../partials/header.ejs") %>
+</head>
+
+<body>
+
+<%- include ("../partials/nav.ejs") %>
+
+<div class="container">
+<h2>Food Results</h2>
+
+<ul>
+  <!-- for each of the object in results -->
+    <% results.forEach(function(item) { %>
+        <li> item_name: <%= item.fields.item_name %> - calories: <%= item.fields.nf_calories %> - total fat: <%= item.fields.nf_total_fat %> </li>
+    <% }); %>
+</ul>
+
+</div>
+
+</body>
+</html>
