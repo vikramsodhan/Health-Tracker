@@ -7,6 +7,7 @@ var session = require("express-session"); // used for login
 var bodyParser = require("body-parser");
 var cors = require("cors"); // cross-origon resourse sharing
 const methodOverride = require("method-override"); //html forms only give GET/POST options need override for PUT/DELETE etc
+var unirest = require("unirest");
 
 // CRUD functions in a REST API
 const db = require("./queries");
