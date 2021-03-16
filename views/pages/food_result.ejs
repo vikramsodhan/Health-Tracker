@@ -2,6 +2,26 @@
 <html>
 <head>
   <%- include ("../partials/header.ejs") %>
+
+  <!--temp style  -->
+  <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
 </head>
 
 <body>
@@ -11,12 +31,23 @@
 <div class="container">
 <h2>Food Results</h2>
 
-<ul>
+<table>
+  <tr>
+   <th>Item name</th>
+   <th>Brand</th>
+   <th>Calories</th>
+   <th>Total fat</th>
+ </tr>
   <!-- for each of the object in results -->
     <% results.forEach(function(item) { %>
-        <li> item_name: <%= item.fields.item_name %> - calories: <%= item.fields.nf_calories %> - total fat: <%= item.fields.nf_total_fat %> </li>
+      <tr>
+        <th><%= item.fields.item_name %></th>
+        <th><%= item.fields.brand_name %></th>
+        <th><%= item.fields.nf_calories %></th>
+        <th><%= item.fields.nf_total_fat %></th>
+      </tr>
     <% }); %>
-</ul>
+</table>
 
 </div>
 
