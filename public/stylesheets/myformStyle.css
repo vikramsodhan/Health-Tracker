@@ -2,7 +2,6 @@
 body {
   /* background-color #87CEFA; */
    background-color: skyblue;
-   padding-top: 10vh
 }
 
 .my_form_box {
@@ -41,4 +40,24 @@ ul.list li input[type="submit"] {
 
 ul.list li:nth-child(10){
    text-decoration: underline;
+}
+
+.nav {
+  overflow: hidden;
+  background-color: springgreen;
+}
+
+.nav a {
+  float: right;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  color: snow;
+}
+
+
+.nav a:hover {
+  background-color: #ddd;
+  color: ;
 }
