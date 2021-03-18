@@ -1,4 +1,18 @@
+body {
+
+  background-color: skyblue;
+}
+
 main {
     padding-top: 50px;
-    padding-left: 10px; 
+    padding-left: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content:center ;
+  align-items: center;
+  text-align: center;
+  padding: 0px 20px;
 }
