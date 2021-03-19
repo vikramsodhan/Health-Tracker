@@ -59,10 +59,5 @@ ul.list li:nth-child(6){
   text-decoration: none;
   font-size: 17px;
   color: snow;
-}
-
-
-.nav a:hover {
-  background-color: #ddd;
-  color: ;
+  background-color: grey;
 }
