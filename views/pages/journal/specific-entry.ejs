@@ -4,11 +4,14 @@
 <head>
     <title><%=journal.title%>></title>
     <%- include ("../../partials/journal_header.ejs") %>
+    <link rel="stylesheet" href="../stylesheets/specific-entry.css">
 </head>
 
 <body>
+  <div class="nav">
+ <a  class="active" href="/journal"> Back to Journal Entries</a>
+  </div>
 
-    <%- include ("../../partials/nav.ejs") %>
 
     <div class="container">
         <h1 class="mb-4"> <%= journal.title %></h1>
