@@ -183,6 +183,18 @@ app.get('/changeEmail', function(request, response){
 
 });
 
+//if there is a separate page for deleteAccount
+// app.get('/deleteAccount', function(request, response){
+//   if (request.session.loggedin){
+//     response.render('pages/');
+//   }
+//   else {
+//     response.status(400).send('Please login to view this page!');
+//   }
+//   response.end();
+
+// });
+
 
 // the logout function
 app.get('/logout', function(request, response){
@@ -217,6 +229,8 @@ app.put('/changeUname', db.changeUname);
 app.put('/changePw', db.changePw);
 
 app.put('/changeEmail', db.changeEmail);
+
+app.put('/deleteUser', db.deleteUser);
 
 
 // ---- Calorie_Counter_API_backend------
