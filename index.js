@@ -222,7 +222,8 @@ app.put('/changeEmail', db.changeEmail);
 // ---- Calorie_Counter_API_backend------
 // need a search page
 app.get("/food_find", function(request, response){
-  response.send("need a search page");
+  var results = { results: null };
+  response.render("pages/food_result", results);
 });
 
 app.get("/food_find/:item",function(request, response){
