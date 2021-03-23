@@ -39,6 +39,7 @@ tr:nth-child(even) {
    <th>Total fat</th>
  </tr>
   <!-- for each of the object in results -->
+  <% if (results){ %>
     <% results.forEach(function(item) { %>
       <tr>
         <th><%= item.fields.item_name %></th>
@@ -47,6 +48,7 @@ tr:nth-child(even) {
         <th><%= item.fields.nf_total_fat %></th>
       </tr>
     <% }); %>
+  <% }; %>
 </table>
 
 </div>
