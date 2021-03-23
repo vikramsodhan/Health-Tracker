@@ -134,7 +134,7 @@ app.get("/dashboard", function (request, response) {
     var uname = {'name': request.session.username};
     response.render('pages/dashboard', uname);
 	} else {
-		response.status(400).send('Please login to view this page!');
+		response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
 	}
 	response.end();
 });
@@ -144,7 +144,7 @@ app.get('/infoPage', function(request, response){
     response.render('pages/infoPage');
   }
   else {
-    response.status(400).send('Please login to view this page!');
+    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
 
@@ -156,7 +156,7 @@ app.get('/changeUname', function(request, response){
     response.render('pages/changeUname');
   }
   else {
-    response.status(400).send('Please login to view this page!');
+    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
 });
@@ -166,7 +166,7 @@ app.get('/changePw', function(request, response){
     response.render('pages/changePw');
   }
   else {
-    response.status(400).send('Please login to view this page!');
+    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
 
@@ -177,7 +177,7 @@ app.get('/changeEmail', function(request, response){
     response.render('pages/changeEmail');
   }
   else {
-    response.status(400).send('Please login to view this page!');
+    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
 
@@ -203,7 +203,7 @@ app.get('/changeEmail', function(request, response){
      response.render('pages/deleteAccount');
    }
   else {
-     response.status(400).send('Please login to view this page!');
+     response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
 
@@ -221,7 +221,13 @@ app.get('/changeEmail', function(request, response){
 app.get('/logout', function(request, response){
   if (request.session.loggedin) {
     request.session.destroy(function (err) {
-		response.send('You are now logged out');
+		response.send(`You are now logged out, redirect to main page after 3 seconds
+      <script>
+        setTimeout(function () {
+          window.location.href = "/";
+        }, 3000);
+      </script>
+      `);
   })
 	} else {
     response.send('You already logged out.');

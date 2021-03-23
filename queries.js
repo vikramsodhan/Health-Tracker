@@ -108,7 +108,13 @@ const changeUname = async (request, response) => {
         throw error
       }
       request.session.username = userName;
-      response.status(200).send('username changed, please log in again')
+      response.status(200).send(`username changed, go back to <a href="/dashboard"> dashboard</a> after 3 seconds
+      <script>
+        setTimeout(function () {
+          window.location.href = "/dashboard";
+        }, 3000);
+      </script>
+        `)
     }
   )
 
@@ -129,7 +135,13 @@ const changePw = async (request, response) => {
         if (error){
           throw error
         }
-        response.status(200).send('password changed, please log in again')
+        response.status(200).send(`password changed, go back to <a href="/dashboard"> dashboard</a> after 3 seconds
+        <script>
+          setTimeout(function () {
+            window.location.href = "/dashboard";
+          }, 3000);
+        </script>
+          `)
       }
     )
   }
@@ -163,7 +175,13 @@ const changeEmail = async (request, response) => {
       if (error){
         throw error
       }
-      response.status(200).send('email changed')
+      response.status(200).send(`email changed, go back to <a href="/dashboard"> dashboard</a> after 3 seconds
+      <script>
+        setTimeout(function () {
+          window.location.href = "/dashboard";
+        }, 3000);
+      </script>
+      `)
     }
   )
 
@@ -199,7 +217,15 @@ const deleteUser = (request, response) => {
       throw error;
     }
   });
-  response.status(200).send(`User deleted with ID: ${userID}`);
+  request.session.destroy(function (err) {
+  response.status(200).send(`User deleted with ID: ${userID}
+    <script>
+      setTimeout(function () {
+        window.location.href = "/";
+      }, 3000);
+    </script>
+    `);
+  });
 };
 
 module.exports = {
