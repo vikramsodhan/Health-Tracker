@@ -206,7 +206,6 @@ module.exports = {
   getUsers,
   getUserById,
   createUser,
-  //updateUser,
   deleteUser,
   changeUname,
   changePw,

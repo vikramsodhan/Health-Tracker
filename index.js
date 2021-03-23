@@ -237,8 +237,8 @@ app.get('/logout', function(request, response){
 app.get("/users", db.getUsers);
 app.get("/users/:id", db.getUserById);
 
-app.put("/users/:id", db.updateUser);
-app.delete("/users/:id", db.deleteUser);
+// app.put("/users/:id", db.updateUser);
+// app.delete("/users/:id", db.deleteUser);
 // end of testing set
 
 // the post request by client. eg. adduser; change the Database,etc
@@ -251,7 +251,7 @@ app.put('/changePw', db.changePw);
 
 app.put('/changeEmail', db.changeEmail);
 
-app.put('/deleteUser', db.deleteUser);
+app.delete('/deleteUser', db.deleteUser);
 
 
 // ---- Calorie_Counter_API_backend------
