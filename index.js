@@ -183,6 +183,39 @@ app.get('/changeEmail', function(request, response){
 
 });
 
+//if there is a separate page for deleteAccount
+// app.get('/deleteAccount', function(request, response){
+//   if (request.session.loggedin){
+//     response.render('pages/');
+//   }
+//   else {
+//     response.status(400).send('Please login to view this page!');
+//   }
+//   response.end();
+
+// });
+
+
+
+//if there is a separate page for deleteAccount
+ app.get('/deleteAccount', function(request, response){
+   if (request.session.loggedin){
+     response.render('pages/deleteAccount');
+   }
+  else {
+     response.status(400).send('Please login to view this page!');
+  }
+  response.end();
+
+ });
+
+
+
+
+
+
+
+
 
 // the logout function
 app.get('/logout', function(request, response){
@@ -204,8 +237,8 @@ app.get('/logout', function(request, response){
 app.get("/users", db.getUsers);
 app.get("/users/:id", db.getUserById);
 
-app.put("/users/:id", db.updateUser);
-app.delete("/users/:id", db.deleteUser);
+// app.put("/users/:id", db.updateUser);
+// app.delete("/users/:id", db.deleteUser);
 // end of testing set
 
 // the post request by client. eg. adduser; change the Database,etc
@@ -218,12 +251,21 @@ app.put('/changePw', db.changePw);
 
 app.put('/changeEmail', db.changeEmail);
 
+app.delete('/deleteUser', db.deleteUser);
 
-// ---- testing API------
+
+// ---- Calorie_Counter_API_backend------
+// need a search page
+app.get("/food_find", function(request, response){
+  var results = { results: null };
+  response.render("pages/food_result", results);
+});
+
 app.get("/food_find/:item",function(request, response){
   var food_key = request.params.item;
   var search_string = "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + food_key;
-  // the code snippet with modification
+  // start of the code snippet with modification
+  // changed the "var req" to var APIreq to avoid nameing contracdiction
   var APIreq = unirest("GET", search_string);
   APIreq.query({
 	   "fields": "item_name,brand_name,nf_calories,nf_total_fat"
@@ -234,10 +276,13 @@ app.get("/food_find/:item",function(request, response){
      "x-rapidapi-host": "nutritionix-api.p.rapidapi.com",
      "useQueryString": true
   });
+  // end of the code snippet with modification
 
   APIreq.end(function (res) {
-    if (res.error) throw new Error(req.error);
-
+    if (res.error) {
+      throw new Error(req.error);
+    };
+    // packge the data, pass to render
     var data = res.body.hits;
     var results = { results: data };
     response.render("pages/food_result", results);
@@ -247,7 +292,6 @@ app.get("/food_find/:item",function(request, response){
 
 
 
-// ---- finished testing API------
 
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

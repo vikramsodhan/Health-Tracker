@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <%- include ("../../partials/nav.ejs") %>
+    <%- include ("../../partials/nav_home.ejs") %>
 
     <!-- <div class="container">
         <h2>Journal Entries</h2>
@@ -39,7 +39,7 @@
                 <div>
                     <a href="/journal/<%= journal.journal_id%>" class="btn btn-primary">Read More</a>
                     <a href="/journal/edit/<%= journal.journal_id%>" class="btn btn-info">Edit</a>
-                    <form action="journal/delete/<%= journal.journal_id%>?_method=DELETE" method="POST"
+                    <form action="/journal/delete/<%= journal.journal_id%>?_method=DELETE" method="POST"
                         class="d-inline">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
