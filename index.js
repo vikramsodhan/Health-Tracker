@@ -219,11 +219,18 @@ app.put('/changePw', db.changePw);
 app.put('/changeEmail', db.changeEmail);
 
 
-// ---- testing API------
+// ---- Calorie_Counter_API_backend------
+// need a search page
+app.get("/food_find", function(request, response){
+  var results = { results: null };
+  response.render("pages/food_result", results);
+});
+
 app.get("/food_find/:item",function(request, response){
   var food_key = request.params.item;
   var search_string = "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + food_key;
-  // the code snippet with modification
+  // start of the code snippet with modification
+  // changed the "var req" to var APIreq to avoid nameing contracdiction
   var APIreq = unirest("GET", search_string);
   APIreq.query({
 	   "fields": "item_name,brand_name,nf_calories,nf_total_fat"
@@ -234,10 +241,13 @@ app.get("/food_find/:item",function(request, response){
      "x-rapidapi-host": "nutritionix-api.p.rapidapi.com",
      "useQueryString": true
   });
+  // end of the code snippet with modification
 
   APIreq.end(function (res) {
-    if (res.error) throw new Error(req.error);
-
+    if (res.error) {
+      throw new Error(req.error);
+    };
+    // packge the data, pass to render
     var data = res.body.hits;
     var results = { results: data };
     response.render("pages/food_result", results);
@@ -247,7 +257,6 @@ app.get("/food_find/:item",function(request, response){
 
 
 
-// ---- finished testing API------
 
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
