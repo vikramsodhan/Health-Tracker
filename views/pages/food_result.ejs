@@ -1,57 +1,68 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <%- include ("../partials/header.ejs") %>
 
   <!--temp style  -->
   <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
 
 </head>
 
 <body>
 
-<%- include ("../partials/nav.ejs") %>
+  <%- include ("../partials/nav.ejs") %>
 
-<div class="container">
-<h2>Food Results</h2>
+  <div class="container">
+    <h2>Food Results</h2>
 
-<table>
-  <tr>
-   <th>Item name</th>
-   <th>Brand</th>
-   <th>Calories</th>
-   <th>Total fat</th>
- </tr>
-  <!-- for each of the object in results -->
-  <% if (results){ %>
-    <% results.forEach(function(item) { %>
+    <table>
+      <tr>
+        <th>Item name</th>
+        <th>Brand</th>
+        <th>Calories</th>
+        <th>Total fat</th>
+      </tr>
+      <!-- for each of the object in results -->
+      <% if (results){ %>
+      <% results.forEach(function(item) { %>
       <tr>
         <th><%= item.fields.item_name %></th>
         <th><%= item.fields.brand_name %></th>
         <th><%= item.fields.nf_calories %></th>
         <th><%= item.fields.nf_total_fat %></th>
       </tr>
-    <% }); %>
-  <% }; %>
-</table>
+      <% }); %>
+      <% }; %>
+    </table>
+    <h1 class="">Continue Searching</h1>
+    <form action="/food_find/redirect" method="GET">
+      <div class="form-group">
+        <label for="title">Food Item</label>
+        <input required type="text" name="food_item" id="food_item" class="form-control">
+      </div>
 
-</div>
+      <button type="submit" class="btn btn-primary">Find</button>
+    </form>
+  </div>
 
 </body>
+
 </html>

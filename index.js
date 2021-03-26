@@ -255,6 +255,11 @@ app.get("/food_search", (req, res) => {
   res.render("pages/food/food_search", res);
 });
 
+app.get("/food_find/redirect", (req, res) => {
+  console.log(req.query.food_item);
+  res.redirect(`/food_find/${req.query.food_item}`);
+});
+
 app.get("/food_find", function (request, response) {
   var results = { results: null };
   response.render("pages/food_result", results);
