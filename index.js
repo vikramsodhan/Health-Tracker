@@ -14,6 +14,8 @@ const db = require("./queries");
 
 const journalRoutes = require("./routes/journalRoutes"); // this is where all of the journal routes are located
 
+const foodRoutes = require("./routes/foodRoutes"); // this is where all of the food/calorie routes are located
+
 // eighter found on env or set it to 5000
 const PORT = process.env.PORT || 5000;
 
@@ -131,56 +133,58 @@ app.get("/dashboard", function (request, response) {
   if (request.session.loggedin) {
     // response.send('Welcome back, ' + request.session.username + '!');
     //goes to dashboard
-    var uname = {'name': request.session.username};
-    response.render('pages/dashboard', uname);
-	} else {
-		response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
-	}
-	response.end();
-});
-
-app.get('/infoPage', function(request, response){
-  if (request.session.loggedin){
-    response.render('pages/infoPage');
-  }
-  else {
-    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
-  }
-  response.end();
-
-
-});
-
-app.get('/changeUname', function(request, response){
-  if (request.session.loggedin){
-    response.render('pages/changeUname');
-  }
-  else {
-    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
+    var uname = { name: request.session.username };
+    response.render("pages/dashboard", uname);
+  } else {
+    response
+      .status(400)
+      .send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
 });
 
-app.get('/changePw', function(request, response){
-  if (request.session.loggedin){
-    response.render('pages/changePw');
-  }
-  else {
-    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
+app.get("/infoPage", function (request, response) {
+  if (request.session.loggedin) {
+    response.render("pages/infoPage");
+  } else {
+    response
+      .status(400)
+      .send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
-
 });
 
-app.get('/changeEmail', function(request, response){
-  if (request.session.loggedin){
-    response.render('pages/changeEmail');
-  }
-  else {
-    response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
+app.get("/changeUname", function (request, response) {
+  if (request.session.loggedin) {
+    response.render("pages/changeUname");
+  } else {
+    response
+      .status(400)
+      .send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
+});
 
+app.get("/changePw", function (request, response) {
+  if (request.session.loggedin) {
+    response.render("pages/changePw");
+  } else {
+    response
+      .status(400)
+      .send('Please <a href="login.html"> login</a> to view this page!');
+  }
+  response.end();
+});
+
+app.get("/changeEmail", function (request, response) {
+  if (request.session.loggedin) {
+    response.render("pages/changeEmail");
+  } else {
+    response
+      .status(400)
+      .send('Please <a href="login.html"> login</a> to view this page!');
+  }
+  response.end();
 });
 
 //if there is a separate page for deleteAccount
@@ -195,49 +199,35 @@ app.get('/changeEmail', function(request, response){
 
 // });
 
-
-
 //if there is a separate page for deleteAccount
- app.get('/deleteAccount', function(request, response){
-   if (request.session.loggedin){
-     response.render('pages/deleteAccount');
-   }
-  else {
-     response.status(400).send('Please <a href="login.html"> login</a> to view this page!');
+app.get("/deleteAccount", function (request, response) {
+  if (request.session.loggedin) {
+    response.render("pages/deleteAccount");
+  } else {
+    response
+      .status(400)
+      .send('Please <a href="login.html"> login</a> to view this page!');
   }
   response.end();
-
- });
-
-
-
-
-
-
-
-
+});
 
 // the logout function
-app.get('/logout', function(request, response){
+app.get("/logout", function (request, response) {
   if (request.session.loggedin) {
     request.session.destroy(function (err) {
-		response.send(`You are now logged out, redirect to main page after 3 seconds
+      response.send(`You are now logged out, redirect to main page after 3 seconds
       <script>
         setTimeout(function () {
           window.location.href = "/";
         }, 3000);
       </script>
       `);
-  })
-	} else {
-    response.send('You already logged out.');
-	response.end();
-}
-})
-
-
-
-
+    });
+  } else {
+    response.send("You already logged out.");
+    response.end();
+  }
+});
 
 // the following set is for testing only
 app.get("/users", db.getUsers);
@@ -249,55 +239,57 @@ app.get("/users/:id", db.getUserById);
 
 // the post request by client. eg. adduser; change the Database,etc
 // Have connect to database; will improve in iteration 2
-app.post('/createUsers', db.createUser);
+app.post("/createUsers", db.createUser);
 
-app.put('/changeUname', db.changeUname);
+app.put("/changeUname", db.changeUname);
 
-app.put('/changePw', db.changePw);
+app.put("/changePw", db.changePw);
 
-app.put('/changeEmail', db.changeEmail);
+app.put("/changeEmail", db.changeEmail);
 
-app.delete('/deleteUser', db.deleteUser);
-
+app.delete("/deleteUser", db.deleteUser);
 
 // ---- Calorie_Counter_API_backend------
 // need a search page
-app.get("/food_find", function(request, response){
+app.get("/food_search", (req, res) => {
+  res.render("pages/food/food_search", res);
+});
+
+app.get("/food_find", function (request, response) {
   var results = { results: null };
   response.render("pages/food_result", results);
 });
 
-app.get("/food_find/:item",function(request, response){
+app.get("/food_find/:item", function (request, response) {
   var food_key = request.params.item;
-  var search_string = "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + food_key;
+  var search_string =
+    "https://nutritionix-api.p.rapidapi.com/v1_1/search/" + food_key;
   // start of the code snippet with modification
   // changed the "var req" to var APIreq to avoid nameing contracdiction
   var APIreq = unirest("GET", search_string);
   APIreq.query({
-	   "fields": "item_name,brand_name,nf_calories,nf_total_fat"
+    fields: "item_name,brand_name,nf_calories,nf_total_fat",
   });
 
   APIreq.headers({
-	   "x-rapidapi-key": "c5ad188f44msh9574928a03a1d31p1b67cejsncca1a8dc9f44",
-     "x-rapidapi-host": "nutritionix-api.p.rapidapi.com",
-     "useQueryString": true
+    "x-rapidapi-key": "c5ad188f44msh9574928a03a1d31p1b67cejsncca1a8dc9f44",
+    "x-rapidapi-host": "nutritionix-api.p.rapidapi.com",
+    useQueryString: true,
   });
   // end of the code snippet with modification
 
   APIreq.end(function (res) {
     if (res.error) {
       throw new Error(req.error);
-    };
+    }
     // packge the data, pass to render
     var data = res.body.hits;
     var results = { results: data };
     response.render("pages/food_result", results);
-    });
-
+  });
 });
 
-
-
+// app.use("/food", foodRoutes);
 
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
