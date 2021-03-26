@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <title>Calorie Finder</title>
   <%- include ("../partials/header.ejs") %>
 
   <!--temp style  -->
@@ -31,7 +32,17 @@
   <%- include ("../partials/nav.ejs") %>
 
   <div class="container">
-    <h2>Food Results</h2>
+    <h1 class="">Calorie Finder</h1>
+    <form action="/food_find/redirect" method="GET">
+      <div class="form-group">
+        <label for="title">Food Item</label>
+        <input required type="text" name="food_item" id="food_item" placeholder="<%=food_searched%>"
+          class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Find</button>
+    </form>
+    <h2>Results</h2>
 
     <table>
       <tr>
@@ -39,6 +50,7 @@
         <th>Brand</th>
         <th>Calories</th>
         <th>Total fat</th>
+        <th></th>
       </tr>
       <!-- for each of the object in results -->
       <% if (results){ %>
@@ -48,19 +60,20 @@
         <th><%= item.fields.brand_name %></th>
         <th><%= item.fields.nf_calories %></th>
         <th><%= item.fields.nf_total_fat %></th>
+        <td>
+          <form action="/food_add" method="POST">
+            <input type="hidden" name="item_searched" id="item_searched" value="<%= food_searched %>">
+            <input type="hidden" name="item_name" id="item_name" value="<%= item.fields.item_name %>">
+            <input type="hidden" name="brand_name" id="brand_name" value="<%= item.fields.brand_name %>">
+            <input type="hidden" name="nf_calories" id="nf_calories" value="<%= item.fields.nf_calories %>">
+            <input type="hidden" name="nf_total_fat" id="nf_total_fat" value="<%= item.fields.nf_total_fat %>">
+            <button type="submit" class="btn btn-primary"> Add</button>
+          </form>
+        </td>
       </tr>
       <% }); %>
       <% }; %>
     </table>
-    <h1 class="">Continue Searching</h1>
-    <form action="/food_find/redirect" method="GET">
-      <div class="form-group">
-        <label for="title">Food Item</label>
-        <input required type="text" name="food_item" id="food_item" class="form-control">
-      </div>
-
-      <button type="submit" class="btn btn-primary">Find</button>
-    </form>
   </div>
 
 </body>

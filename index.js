@@ -256,8 +256,12 @@ app.get("/food_search", (req, res) => {
 });
 
 app.get("/food_find/redirect", (req, res) => {
-  console.log(req.query.food_item);
   res.redirect(`/food_find/${req.query.food_item}`);
+});
+
+app.post("/food_add", (req, res) => {
+  console.log(req.body);
+  res.redirect(`/food_find/${req.body.item_searched}`);
 });
 
 app.get("/food_find", function (request, response) {
@@ -285,11 +289,11 @@ app.get("/food_find/:item", function (request, response) {
 
   APIreq.end(function (res) {
     if (res.error) {
-      throw new Error(req.error);
+      throw new Error(req.error); // Is this supposed to be res.error?
     }
     // packge the data, pass to render
     var data = res.body.hits;
-    var results = { results: data };
+    var results = { results: data, food_searched: food_key };
     response.render("pages/food_result", results);
   });
 });
