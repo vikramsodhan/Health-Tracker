@@ -60,7 +60,7 @@
         <th><%= item.fields.brand_name %></th>
         <th><%= item.fields.nf_calories %></th>
         <th><%= item.fields.nf_total_fat %></th>
-        <td>
+        <th>
           <form action="/food_add" method="POST">
             <input type="hidden" name="item_searched" id="item_searched" value="<%= food_searched %>">
             <input type="hidden" name="item_name" id="item_name" value="<%= item.fields.item_name %>">
@@ -69,10 +69,53 @@
             <input type="hidden" name="nf_total_fat" id="nf_total_fat" value="<%= item.fields.nf_total_fat %>">
             <button type="submit" class="btn btn-primary"> Add</button>
           </form>
-        </td>
+        </th>
       </tr>
       <% }); %>
       <% }; %>
+    </table>
+
+
+    <h2>Added Food</h2>
+    <table>
+      <tr>
+        <th>Item name</th>
+        <th>Brand</th>
+        <th>Calories</th>
+        <th>Total fat</th>
+        <th></th>
+      </tr>
+      <%let total_calories = 0;%>
+      <%let total_fat = 0;%>
+      <%let counter = 0%>
+      <% if (saved_food){ %>
+      <% saved_food.forEach(function(item) { %>
+      <tr>
+        <th><%= item.item_name %></th>
+        <th><%= item.brand_name %></th>
+        <th><%= item.nf_calories %></th>
+        <th><%= item.nf_total_fat %></th>
+        <th>
+          <form action="/food_delete?_method=DELETE" method="POST">
+            <input type="hidden" name="item_searched" id="item_searched" value="<%=item.item_searched%>">
+            <input type="hidden" name="item_index" id="item_index" value=<%=counter%>>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </th>
+        <%total_calories += parseFloat(item.nf_calories)%>
+        <%total_fat += parseFloat(item.nf_total_fat)%>
+        <%counter +=1%>
+      </tr>
+      <% }); %>
+      <% }; %>
+      <tr>
+        <th>
+          <h3>Total</h3>
+        </th>
+        <th></th>
+        <th><%=total_calories%></th>
+        <th><%=total_fat%></th>
+      </tr>
     </table>
   </div>
 

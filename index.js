@@ -260,7 +260,14 @@ app.get("/food_find/redirect", (req, res) => {
 });
 
 app.post("/food_add", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
+  req.session.saved_food = req.session.saved_food || [];
+  req.session.saved_food.push(req.body);
+  res.redirect(`/food_find/${req.body.item_searched}`);
+});
+
+app.delete("/food_delete", (req, res) => {
+  req.session.saved_food.splice(req.body.item_index, 1);
   res.redirect(`/food_find/${req.body.item_searched}`);
 });
 
@@ -293,7 +300,12 @@ app.get("/food_find/:item", function (request, response) {
     }
     // packge the data, pass to render
     var data = res.body.hits;
-    var results = { results: data, food_searched: food_key };
+    var results = {
+      results: data,
+      food_searched: food_key,
+      saved_food: request.session.saved_food,
+    };
+    console.log(request.session.saved_food);
     response.render("pages/food_result", results);
   });
 });
