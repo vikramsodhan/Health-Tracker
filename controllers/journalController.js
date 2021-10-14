@@ -1,3 +1,4 @@
+// Code done by Vikram Sodhan
 // journal_all, journal_details, journal_create_get, journal_create_post, journal_delete
 const journalModel = require("../models/journalModel");
 
