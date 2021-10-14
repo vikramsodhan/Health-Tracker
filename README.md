@@ -11,7 +11,7 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 [Dashboard](https://cmpt276-spring-group-project.herokuapp.com/dashboard)
 
-[Journal](https://cmpt276-spring-group-project.herokuapp.com/journal) This is the feature I was specifically responsible for.
+[Journal](https://cmpt276-spring-group-project.herokuapp.com/journal) This is the feature I was specifically responsible for
 
 [Calorie Counter](https://cmpt276-spring-group-project.herokuapp.com/food_search)
 
