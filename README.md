@@ -13,12 +13,14 @@ Health Tracker is a web application which allows users to monitor and track thei
 
 For the below features you need to create a profile or use the test profile below.
 
-Username: tester
+Username: tester    
 Password: test123
+
+[Journal](https://cmpt276-spring-group-project.herokuapp.com/journal) This is the feature I was specifically responsible for
 
 [Dashboard](https://cmpt276-spring-group-project.herokuapp.com/dashboard)
 
-[Journal](https://cmpt276-spring-group-project.herokuapp.com/journal) This is the feature I was specifically responsible for
+
 
 
 
